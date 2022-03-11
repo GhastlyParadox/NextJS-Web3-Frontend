@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
-// import { ethers } from 'ethers';
-// import { waveContractAddress } from "@/lib/utils/constants";
-// import { WavePortalAbi__factory } from '@/lib/types';
-// import useSWR from 'swr';
+import { ethers } from 'ethers';
+import { waveContractAddress } from "@/lib/utils/constants";
+import { WavePortalAbi__factory } from '@/lib/types';
+import useSWR from 'swr';
 
 
 import { Spinner } from '@/lib/components/Spinner'
@@ -24,14 +24,10 @@ const Messenger = () => {
   const { account, library } = useWeb3React<Web3Provider>();
   const { active, error } = useWeb3React();
 
-
-  // const provider = ethers.getDefaultProvider('rinkeby')
-  // const defaultSigner = ethers.Wallet.createRandom().connect(provider)
-  // const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library.getSigner<ethers.providers.JsonRpcSigner>());   // TypeError: Cannot read properties of undefined (reading 'getSigner')
-  // const [allWaves, setAllWaves] = useState([]);
-
+  const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
+  const [allWaves, setAllWaves] = useState([]);
   const [ message, setMessage ] = useState<string>("");
-  const [ currentTxn, setCurrentTxn ] = useState(false);
+  const [ txnAttempt, setTxnAttempt ] = useState(false);
   
   const debouncedInput = useRef(
     debounce(async (input) => {
@@ -50,30 +46,30 @@ const Messenger = () => {
 
       console.log("Work in progess");
     
-      // let count = await wavePortalContract.getTotalWaves();
+      let count = await wavePortalContract.getTotalWaves();
   
-      // console.log("Retrieved total wave count...", count.toNumber());
+      console.log("Retrieved total wave count...", count.toNumber());
 
       /*
       * Execute the actual wave from your smart contract
       */
       
-      /*
-      *
+      
+      
       const waveTxn = await wavePortalContract.wave(message);
       console.log("Mining...", waveTxn.hash);
-      setCurrentTxn(true);
+      setTxnAttempt(true);
       
 
       await waveTxn.wait();
       console.log("Mined -- ", waveTxn.hash);
-      setCurrentTxn(false);
+      setTxnAttempt(false);
       
 
-      count = await wavePortalContract.getTotalWaves();
-      console.log("Retrieved total wave count...", count.toNumber());
-      */
+      // count = await wavePortalContract.getTotalWaves();
+      // console.log("Retrieved total wave count...", count.toNumber());
       
+    
       }
       catch (error) {
         console.log(error);
@@ -82,7 +78,7 @@ const Messenger = () => {
   return (
     <>{ account && active ?
       <Flex className="waveportal">
-        {!currentTxn ? (
+        {!txnAttempt ? (
         <FormControl className="messenger">
           <FormLabel htmlFor='message'></FormLabel>
           <Input bg="gray.100" defaultValue={message} size="lg" variant="outline" className="rounded" type="text" placeholder="holla here!" onBlur={(e => handleChange(e))}/>
