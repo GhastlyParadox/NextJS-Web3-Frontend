@@ -1,3 +1,5 @@
 src/lib/contracts/*
 
 node_modules
+
+.DS_Store

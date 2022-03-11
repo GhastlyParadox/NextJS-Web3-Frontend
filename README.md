@@ -1,4 +1,4 @@
-# Buildspace Web3 wave portal project
+# Buildspace Web3 portal frontend
 
 ### Requirements
 
