@@ -1,10 +1,8 @@
 
 import { AppConfig } from '@/lib/utils/AppConfig';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Account } from './Account';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faHomeAlt, faMessage } from '@fortawesome/free-solid-svg-icons';
-
 import { Flex, 
   HStack,
   Center,
@@ -44,8 +42,8 @@ import { Flex,
                 </BreadcrumbLink>   
             </BreadcrumbItem>
             <BreadcrumbItem>
-                <BreadcrumbLink href="/about/">
-                <IconButton variant="ghost" aria-label='About' size='lg' icon={<FontAwesomeIcon icon={faMessage}/>}>
+                <BreadcrumbLink href="/portal/">
+                <IconButton variant="ghost" aria-label='Message' size='lg' icon={<FontAwesomeIcon icon={faMessage}/>}>
                 </IconButton> 
                 </BreadcrumbLink>
             </BreadcrumbItem>

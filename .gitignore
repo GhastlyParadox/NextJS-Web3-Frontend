@@ -3,3 +3,12 @@ src/lib/contracts/*
 node_modules
 
 .DS_Store
+
+.next
+
+*.code-workspace
+
+.husky
+
+
+

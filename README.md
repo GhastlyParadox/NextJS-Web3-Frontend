@@ -1,16 +1,18 @@
-# Buildspace Web3 portal frontend
+# Web3 frontend / playground
 
 ### Requirements
 
-- Node.js 14+ and npm
+- node.js 14+
+- yarn / npm
+- package.json
 
-### Getting started
+### Set up basics
 
 Run the following command on your local environment:
 
 ```
 git clone --depth=1 . project-name
-cd my-project-name
+cd your-project-name
 yarn
 ```
 
@@ -20,7 +22,7 @@ Then, you can run locally in development mode with live reload:
 yarn dev
 ```
 
-Open http://localhost:3000 with your favorite browser to see your project.
+Open http://localhost:3000 with your favorite browser, go nuts.
 
 ```
 .

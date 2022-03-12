@@ -1,13 +1,9 @@
-import React, { useState, useRef } from 'react';
-import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
+import React, { useState, useRef, useEffect } from 'react';
+import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
-import { ethers } from 'ethers';
+import { BigNumber } from 'ethers';
 import { waveContractAddress } from "@/lib/utils/constants";
 import { WavePortalAbi__factory } from '@/lib/types';
-import useSWR from 'swr';
-
-
-import { Spinner } from '@/lib/components/Spinner'
 import { debounce } from "lodash";
 
 import {
@@ -16,6 +12,10 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  Center,
+  Link,
+  IconButton,
+  Image,
 } from '@chakra-ui/react'
 
 
@@ -24,8 +24,7 @@ const Messenger = () => {
   const { account, library } = useWeb3React<Web3Provider>();
   const { active, error } = useWeb3React();
 
-  const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
-  const [allWaves, setAllWaves] = useState([]);
+  const [ allWaves, setAllWaves] = useState([{}]);
   const [ message, setMessage ] = useState<string>("");
   const [ txnAttempt, setTxnAttempt ] = useState(false);
   
@@ -40,52 +39,86 @@ const Messenger = () => {
   }
 
   const wave = async () => {
-
     
-    try {
-
-      console.log("Work in progess");
-    
-      let count = await wavePortalContract.getTotalWaves();
+    const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
   
-      console.log("Retrieved total wave count...", count.toNumber());
-
-      /*
-      * Execute the actual wave from your smart contract
-      */
-      
-      
-      
-      const waveTxn = await wavePortalContract.wave(message);
+    try {
+      const waveTxn = await wavePortalContract.wave(message, { gasLimit: 300000 });
       console.log("Mining...", waveTxn.hash);
       setTxnAttempt(true);
       
-
       await waveTxn.wait();
       console.log("Mined -- ", waveTxn.hash);
       setTxnAttempt(false);
-      
+      getallWaves();
 
-      // count = await wavePortalContract.getTotalWaves();
-      // console.log("Retrieved total wave count...", count.toNumber());
-      
-    
       }
       catch (error) {
-        console.log(error);
+        console.log("Provider missing!", error);
+        setTxnAttempt(false);
       } 
   }
+
+  const getallWaves = async () => {
+
+    const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
+
+    try {
+
+      const waves = await wavePortalContract.getAllWaves();
+      const wavesCleaned = waves.map(wave => {
+        return {
+          address: wave.waver,
+          timestamp: new Date(Number(wave.timestamp) * 1000),
+          message: wave.message,
+        };
+      });
+
+      setAllWaves(wavesCleaned);
+      console.log("All waves: ", allWaves);
+
+    } catch(error) {
+
+    }
+  }
+  useEffect(() => {
+    
+    const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
+
+    const onNewWave = (from: string, timestamp: BigNumber, message: string) => {
+      console.log("NewWave", from, timestamp, message);
+      setAllWaves(prevState => [
+        ...prevState,
+        {
+          address: from,
+          timestamp: new Date(Number(timestamp) * 1000),
+          message: message,
+        },
+      ]);
+    };
+  
+    if (wavePortalContract) {
+      wavePortalContract.on("NewWave", onNewWave);
+    }
+  
+    return () => {
+      if (wavePortalContract) {
+        wavePortalContract.off("NewWave", onNewWave);
+      }
+    };
+  }, []);
   return (
     <>{ account && active ?
-      <Flex className="waveportal">
-        {!txnAttempt ? (
-        <FormControl className="messenger">
-          <FormLabel htmlFor='message'></FormLabel>
-          <Input bg="gray.100" defaultValue={message} size="lg" variant="outline" className="rounded" type="text" placeholder="holla here!" onBlur={(e => handleChange(e))}/>
-          <button className="waveButton" onClick={() => wave()}>👋</button>
-        </FormControl>) : (<Spinner />) }
-      </Flex>
-      : <Text>Connect and holla!</Text>}
+        <Flex className="waveportal">
+          {!txnAttempt ? (
+            <FormControl className="messenger">
+              <FormLabel htmlFor='message'></FormLabel>
+              <Input bg="gray.100" defaultValue={message} size="lg" variant="outline" className="rounded" type="text" placeholder="holla here!" onBlur={(e => handleChange(e))}/>
+              <button className="waveButton" onClick={() => wave()}>👋</button>
+            </FormControl>) 
+          : ( <div className="mining"></div>) }
+        </Flex>
+      : <Text fontSize="md">Connect via MetaMask (rinkeby) and holla!</Text>}
     </>
   );
 };

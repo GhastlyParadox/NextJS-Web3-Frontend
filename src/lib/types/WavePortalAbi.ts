@@ -36,7 +36,8 @@ export interface WavePortalAbiInterface extends utils.Interface {
   functions: {
     "getAllWaves()": FunctionFragment;
     "getTotalWaves()": FunctionFragment;
-    "getUserWaves()": FunctionFragment;
+    "getUserWaveCount()": FunctionFragment;
+    "lastWavedAt(address)": FunctionFragment;
     "userWaveCount(address)": FunctionFragment;
     "wave(string)": FunctionFragment;
   };
@@ -50,9 +51,10 @@ export interface WavePortalAbiInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getUserWaves",
+    functionFragment: "getUserWaveCount",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "lastWavedAt", values: [string]): string;
   encodeFunctionData(
     functionFragment: "userWaveCount",
     values: [string]
@@ -68,7 +70,11 @@ export interface WavePortalAbiInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getUserWaves",
+    functionFragment: "getUserWaveCount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "lastWavedAt",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -125,7 +131,9 @@ export interface WavePortalAbi extends BaseContract {
 
     getTotalWaves(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getUserWaves(overrides?: CallOverrides): Promise<[BigNumber]>;
+    getUserWaveCount(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    lastWavedAt(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     userWaveCount(
       arg0: string,
@@ -144,7 +152,9 @@ export interface WavePortalAbi extends BaseContract {
 
   getTotalWaves(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getUserWaves(overrides?: CallOverrides): Promise<BigNumber>;
+  getUserWaveCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+  lastWavedAt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   userWaveCount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -160,7 +170,9 @@ export interface WavePortalAbi extends BaseContract {
 
     getTotalWaves(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getUserWaves(overrides?: CallOverrides): Promise<BigNumber>;
+    getUserWaveCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    lastWavedAt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     userWaveCount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -185,7 +197,9 @@ export interface WavePortalAbi extends BaseContract {
 
     getTotalWaves(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getUserWaves(overrides?: CallOverrides): Promise<BigNumber>;
+    getUserWaveCount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    lastWavedAt(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     userWaveCount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -200,7 +214,12 @@ export interface WavePortalAbi extends BaseContract {
 
     getTotalWaves(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getUserWaves(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getUserWaveCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    lastWavedAt(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     userWaveCount(
       arg0: string,

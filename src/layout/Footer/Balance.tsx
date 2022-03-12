@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core'
 import { formatEther } from '@ethersproject/units';
+
 
 export function Balance() {
     const { account, library, chainId } = useWeb3React()
