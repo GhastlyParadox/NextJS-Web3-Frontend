@@ -5,7 +5,7 @@ import { formatEther } from '@ethersproject/units';
 
 export function Balance() {
     const { account, library, chainId } = useWeb3React()
-    const { active, error } = useWeb3React()
+    const { active } = useWeb3React()
   
     const [balance, setBalance] = useState<string | null>(null);
     useEffect((): any => {
