@@ -61,9 +61,7 @@ const Messenger = () => {
   const getallWaves = async () => {
 
     const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
-
     try {
-
       const waves = await wavePortalContract.getAllWaves();
       const wavesCleaned = waves.map(wave => {
         return {
@@ -77,13 +75,11 @@ const Messenger = () => {
       console.log("All waves: ", allWaves);
 
     } catch(error) {
+      console.log("Error, ", error);
 
     }
   }
   useEffect(() => {
-    
-    const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
-
     const onNewWave = (from: string, timestamp: BigNumber, message: string) => {
       console.log("NewWave", from, timestamp, message);
       setAllWaves(prevState => [
@@ -95,16 +91,24 @@ const Messenger = () => {
         },
       ]);
     };
-  
-    if (wavePortalContract) {
-      wavePortalContract.on("NewWave", onNewWave);
-    }
-  
-    return () => {
-      if (wavePortalContract) {
-        wavePortalContract.off("NewWave", onNewWave);
+    if (account) {
+      try {
+        const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
+        if (wavePortalContract) {
+          wavePortalContract.on("NewWave", onNewWave);
+        }
+      
+        return () => {
+          if (wavePortalContract) {
+            wavePortalContract.off("NewWave", onNewWave);
+          }
+        };
+        
+      } catch (error) {
+        console.log(error);
       }
-    };
+    }
+    return;
   }, []);
   return (
     <>{ account && active ?
