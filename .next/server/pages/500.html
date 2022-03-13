@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="next-head-count" content="2"/><link rel="preload" href="/_next/static/css/549f1d78214111ce.css" as="style"/><link rel="stylesheet" href="/_next/static/css/549f1d78214111ce.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script><script src="/_next/static/chunks/webpack-5761f3a204ffdf4a.js" defer=""></script><script src="/_next/static/chunks/framework-5f4595e5518b5600.js" defer=""></script><script src="/_next/static/chunks/main-c3b6816b38c7fbf8.js" defer=""></script><script src="/_next/static/chunks/pages/_app-994cec448bf75e1e.js" defer=""></script><script src="/_next/static/chunks/pages/_error-2280fa386d040b66.js" defer=""></script><script src="/_next/static/OOTUlVzOQt6PjBq6Xow8N/_buildManifest.js" defer=""></script><script src="/_next/static/OOTUlVzOQt6PjBq6Xow8N/_ssgManifest.js" defer=""></script><script src="/_next/static/OOTUlVzOQt6PjBq6Xow8N/_middlewareManifest.js" defer=""></script></head><body><script>(function setScript(initialValue) {
+  var mql = window.matchMedia("(prefers-color-scheme: dark)");
+  var systemPreference = mql.matches ? "dark" : "light";
+  var persistedPreference = systemPreference;
+
+  try {
+    persistedPreference = localStorage.getItem("chakra-ui-color-mode");
+  } catch (error) {
+    console.log("Chakra UI: localStorage is not available. Color mode persistence might not work as expected");
+  }
+
+  var colorMode;
+
+  if (persistedPreference) {
+    colorMode = persistedPreference;
+  } else if (initialValue === "system") {
+    colorMode = systemPreference;
+  } else {
+    colorMode = initialValue != null ? initialValue : systemPreference;
+  }
+
+  if (colorMode) {
+    /**
+     * Keep in sync with `root.set() {@file ./color-mode.utils.ts}
+     */
+    document.documentElement.style.setProperty("--chakra-ui-color-mode", colorMode);
+    document.documentElement.setAttribute("data-theme", colorMode);
+  }
+})('light')</script><div id="__next" data-reactroot=""></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"statusCode":500}},"page":"/_error","query":{},"buildId":"OOTUlVzOQt6PjBq6Xow8N","nextExport":true,"isFallback":false,"gip":true,"scriptLoader":[]}</script></body></html>
