@@ -1,6 +1,7 @@
 [build]
   publish = ".next"
   command = "yarn build"
+  base = "/"
 
 [build.environment]
-  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+  NETLIFY_NEXT_PLUGIN_SKIP = "false"
