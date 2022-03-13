@@ -2,12 +2,9 @@ import {
     Link,
     Flex, 
     VStack,
-    HStack,
     Stat,
     StatNumber,
-    IconButton,
-    Image,
-    Center
+    Text,
    } from '@chakra-ui/react'
 import { Balance } from './Balance';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,28 +15,15 @@ export function Footer() {
 
     return (
         <><Flex width="100%" justifyContent="space-between">
-            <HStack ml="2">
+            <VStack ml="2" mb="2">
+                <FontAwesomeIcon icon={faMusic}/>
                 <Link href="https://soundcloud.com/sightsofsounds" isExternal>
-                    <IconButton 
-                        variant="ghost" 
-                        aria-label='Music' 
-                        size='lg' 
-                        icon={<FontAwesomeIcon icon={faMusic}/>}></IconButton>
-                </Link>
-            </HStack>
-            <Center marginLeft="5">
-                <Link href="https://metamask.io/" isExternal>
-                    <IconButton 
-                            size='md' 
-                            aria-label='MetaMask' 
-                            variant="ghost"
-                            icon={<Image maxWidth="20px" 
-                            src="/images/logo-metamask.png" alt="MetaMask" />}></IconButton>
-                </Link>
-            </Center>
-            <VStack>
+                    <Text fontSize="small">My other muse.</Text>
+                </Link>   
+            </VStack>
+            <VStack mr="2">
                 <Stat>
-                    <StatNumber mr="1"> <Balance /> </StatNumber>     
+                    <StatNumber> <Balance /> </StatNumber>     
                 </Stat>
             </VStack> 
         </Flex>

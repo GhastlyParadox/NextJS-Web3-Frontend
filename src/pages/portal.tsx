@@ -1,7 +1,7 @@
 import { Meta } from '@/layout/Meta';
 import { Main } from '@/layout/Main';
 import WaveMessenger from  '@/lib/components/WaveMessenger';
-import { Text, Center, Flex, Heading, Link, IconButton, Image } from '@chakra-ui/react';
+import { Center, Flex, Heading } from '@chakra-ui/react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChain } from '@fortawesome/free-solid-svg-icons';

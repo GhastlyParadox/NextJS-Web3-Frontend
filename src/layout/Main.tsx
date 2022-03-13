@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import { Header } from './Header/Header';
 import { Footer } from './Footer/Footer';
 
@@ -14,8 +14,7 @@ type IMainProps = {
 
 const Main = (props: IMainProps) => {
   
-  const router = useRouter();
-  const isLanding = router.pathname == "/";
+  // const router = useRouter();
 
   return (
   <Box w="100%" height="100vh">

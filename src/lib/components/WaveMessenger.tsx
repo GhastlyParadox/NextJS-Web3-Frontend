@@ -9,20 +9,17 @@ import { debounce } from "lodash";
 import {
   Input,
   Text,
+  Link,
   Flex,
   FormControl,
   FormLabel,
-  Center,
-  Link,
-  IconButton,
-  Image,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
 
 const Messenger = () => {
 
   const { account, library } = useWeb3React<Web3Provider>();
-  const { active, error } = useWeb3React();
+  const { active } = useWeb3React();
 
   const [ allWaves, setAllWaves] = useState([{}]);
   const [ message, setMessage ] = useState<string>("");
@@ -50,12 +47,14 @@ const Messenger = () => {
       await waveTxn.wait();
       console.log("Mined -- ", waveTxn.hash);
       setTxnAttempt(false);
+      setMessage("");
       getallWaves();
 
       }
       catch (error) {
-        console.log("Provider missing!", error);
+        console.log("Error, ", error);
         setTxnAttempt(false);
+        setMessage("");
       } 
   }
 
@@ -118,7 +117,7 @@ const Messenger = () => {
             </FormControl>) 
           : ( <div className="mining"></div>) }
         </Flex>
-      : <Text fontSize="md">Connect via MetaMask (rinkeby) and holla!</Text>}
+      : <Text fontSize="md" mt="3">Connect via <Link fontWeight="black" href="https://metamask.io/">MetaMask</Link> (rinkeby) and holla!</Text>}
     </>
   );
 };

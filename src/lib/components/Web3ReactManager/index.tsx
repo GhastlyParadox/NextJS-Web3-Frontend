@@ -1,19 +1,19 @@
 
 import React, { useState, useEffect } from 'react';
-import { Web3ReactProvider, useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
+import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 
 import { useEagerConnect, useInactiveListener } from '@/lib/hooks/web3hooks';
 
 export default function Web3ReactManager({ children }: { children: JSX.Element }) {
     const context = useWeb3React<Web3Provider>()
-    const { connector, library, account, activate, deactivate, active, error } = context
+    const { connector } = context
   
     // try to eagerly connect to an injected provider, if it exists and has granted access already
     const triedEager = useEagerConnect()
     
     const [activatingConnector, setActivatingConnector] = React.useState<any>()
-    // after eagerly trying injected, if the network connect ever isn't active or in an error state, activate itd
+    // after eagerly trying injected, if the network connect ever isn't active or in an error state, activate it
     useEffect(() => {
       if (activatingConnector && activatingConnector === connector) {
         setActivatingConnector(undefined)
@@ -32,6 +32,7 @@ export default function Web3ReactManager({ children }: { children: JSX.Element }
   
       return () => {
         clearTimeout(timeout)
+        showLoader ? setShowLoader(false) : null;
       }
     }, [])
   

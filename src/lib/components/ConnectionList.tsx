@@ -1,5 +1,5 @@
 import { Web3Provider } from '@ethersproject/providers'
-import { Web3ReactProvider, useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
+import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
 import React from 'react'
 import { useEagerConnect, useInactiveListener } from '../hooks/web3hooks';
 import {
@@ -42,7 +42,7 @@ function getErrorMessage(error: Error) {
 
 export function ConnectionList() {
   const context = useWeb3React<Web3Provider>()
-  const { connector, library, account, activate, deactivate, active, error } = context
+  const { connector, activate, deactivate, active, error } = context;
 
   // handle logic to recognize the connector currently being activated
   const [activatingConnector, setActivatingConnector] = React.useState<any>()
