@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
-import { useWeb3React } from '@web3-react/core'
-import { ConnectionList } from '../../lib/components/ConnectionList'
+import React from 'react';
+import { useWeb3React } from '@web3-react/core';
+import { ConnectionList } from '../../lib/components/ConnectionList';
 
 import {
     Box,
     Button,
-    Image,
     Modal,
     ModalBody,
     ModalCloseButton,
@@ -17,8 +16,7 @@ import {
 
 export function Account() {
   const { account } = useWeb3React()
-  const { active, error } = useWeb3React()
-  // const [isShown, setIsShown] = useState(false)
+  const { active } = useWeb3React()
   const { onOpen, isOpen, onClose } = useDisclosure()
 
   return (
