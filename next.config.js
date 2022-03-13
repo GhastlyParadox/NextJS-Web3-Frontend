@@ -11,4 +11,5 @@ module.exports = withBundleAnalyzer({
   trailingSlash: true,
   basePath: '',
   reactStrictMode: true,
+  target: 'serverless'
 });
