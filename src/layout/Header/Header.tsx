@@ -38,7 +38,12 @@ import { Flex,
             </BreadcrumbItem>
             <BreadcrumbItem>
                 <BreadcrumbLink href="https://github.com/GhastlyParadox">
-                <IconButton size='lg' aria-label='Github' variant="ghost" icon={<Image maxWidth="20px" src="/images/logo-github-dark.png" alt="Github" />}> </IconButton>
+                    <IconButton 
+                    size='lg' 
+                    aria-label='Github' 
+                    variant="ghost" 
+                    icon={<Image maxWidth="20px" 
+                    src="/images/logo-github-dark.png" alt="Github" />}> </IconButton>
                 </BreadcrumbLink>   
             </BreadcrumbItem>
             <BreadcrumbItem>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { ConnectionList } from '../../lib/components/ConnectionList';
+import { WalletConnect } from '@/lib/components/Web3ReactManager/WalletConnect';
 
 import {
     Box,
@@ -23,7 +23,8 @@ export function Account() {
     <>
     <Box
       mt="4"
-      mr="1"
+      mr="2"
+      ml=""
       order={[-1, null, null, 2]}
       textAlign={['left', null, null, 'right']}
     >
@@ -36,10 +37,10 @@ export function Account() {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent title="Connect Wallet"> 
-        <ModalHeader>Connect a wallet</ModalHeader>
+        <ModalHeader>MetaMask</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <ConnectionList />
+          <WalletConnect />
         </ModalBody>
       </ModalContent>
     </Modal>

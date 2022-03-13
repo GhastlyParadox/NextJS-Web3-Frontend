@@ -78,6 +78,24 @@ input {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
+.disconnectButton {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+  border: 0;
+  border-radius: 5px;
+  color: salmon;
+  --gradient: linear-gradient(90deg, #69719b 0px, #8f9ca8 40px, #a7b3b4 80px);
+  background-color: #69719b;
+
+}
+
+.disconnectButton:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
 :root {
   --gradient: linear-gradient(90deg, #69719b 0px, #8f9ca8 40px, #a7b3b4 80px);
   --grey: #eee;
