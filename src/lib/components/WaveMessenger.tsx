@@ -48,6 +48,7 @@ const Messenger = () => {
 
 
   const Wave = async () => {
+    setMessage("");
     
     const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
   
@@ -55,7 +56,6 @@ const Messenger = () => {
       const waveTxn = await wavePortalContract.wave(message, { gasLimit: 300000 });
       console.log("Mining...", waveTxn.hash);
       setTxnAttempt(true);
-      setMessage("");
       
       await waveTxn.wait();
       console.log("Mined -- ", waveTxn.hash);
