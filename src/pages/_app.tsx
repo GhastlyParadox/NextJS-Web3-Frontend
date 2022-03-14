@@ -33,11 +33,11 @@ function getLibrary(provider: ExternalProvider | JsonRpcFetchFunc): Web3Provider
 
 const App = ({ Component, pageProps }: AppProps) => (
    <Web3ReactProvider getLibrary={getLibrary}>
-      <Web3ReactManager>
-        <ChakraProvider theme={customTheme}>
+     <ChakraProvider theme={customTheme}>
+        <Web3ReactManager>
           <Component {...pageProps} /> 
-        </ChakraProvider>
-      </Web3ReactManager>
+        </Web3ReactManager>
+      </ChakraProvider>
     </Web3ReactProvider>
 );
 
