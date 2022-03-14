@@ -25,9 +25,9 @@ const Main = (props: IMainProps) => {
         {props.children}
   
     </Flex>
-    <Box bottom="0" position="absolute" width="100%">
+    <Flex bottom="0" position="absolute" width="100%">
       <Footer />
-    </Box>
+    </Flex>
   </Box>
 )};
 

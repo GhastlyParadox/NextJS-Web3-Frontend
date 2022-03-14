@@ -3,6 +3,7 @@ import { useWeb3React } from '@web3-react/core'
 import { formatEther } from '@ethersproject/units';
 import {
   StatNumber,
+  Box,
  } from '@chakra-ui/react'
 
 
@@ -38,9 +39,10 @@ export function Balance() {
     return (
       <>
         {active && account ?
-          <StatNumber>{balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</StatNumber>
+          <Box>
+            <StatNumber>{balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</StatNumber>
+          </Box>
         : null }
-        
       </>
     )
   }

@@ -16,9 +16,11 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  VStack
+  VStack,
+  Alert,
+  AlertIcon,
+  Center,
 } from '@chakra-ui/react';
-
 
 function getErrorMessage(error: Error) {
   if (error instanceof NoEthereumProviderError) {
@@ -36,19 +38,23 @@ function getErrorMessage(error: Error) {
   }
 }
 
-
 const Messenger = () => {
 
   const { account, library } = useWeb3React<Web3Provider>();
   const { active, error } = useWeb3React();
 
   const [ allWaves, setAllWaves] = useState([{}]);
+
   const [ message, setMessage ] = useState<string>("");
   const [ txnAttempt, setTxnAttempt ] = useState(false);
 
+  const [ success, setSuccess ] = useState(false);
+  const [ err, setErr ] = useState(false);
+  
+  // const form = useRef(null);
+
 
   const Wave = async () => {
-    setMessage("");
     
     const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
   
@@ -59,10 +65,16 @@ const Messenger = () => {
       
       await waveTxn.wait();
       console.log("Mined -- ", waveTxn.hash);
+      // form.current.reset();
+      getallWaves();
       setTxnAttempt(false);
+      handleAlert(true);
+
 
       } catch (Error) {
         console.log(getErrorMessage(error!));
+        // form.current.reset();
+        handleAlert(false); 
         setTxnAttempt(false);
       } 
   }
@@ -90,7 +102,7 @@ const Messenger = () => {
     }
   }
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
     await debouncedInput(e.target.value);
   }
 
@@ -99,8 +111,22 @@ const Messenger = () => {
       setMessage(await input);
     }, 300)
   ).current;
+
+
+  const handleAlert = async (bool: Boolean) => {
+    bool ? setSuccess(true) : setErr(true);
+    await debouncedAlert();
+  }
+
+  const debouncedAlert = useRef(
+    debounce(async() => {
+      setSuccess(false);
+      setErr(false);
+    }, 3000)
+  ).current;
   
   useEffect(() => {
+
     const onNewWave = (from: string, timestamp: BigNumber, message: string) => {
       console.log("NewWave", from, timestamp, message);
       setAllWaves(prevState => [
@@ -132,17 +158,19 @@ const Messenger = () => {
     return;
   }, []);
   return (
-    <>{ account && active ?
-        <Flex className="waveportal">
-          {!txnAttempt ? (
-            <FormControl className="messenger">
-              <FormLabel htmlFor='message'></FormLabel>
-              <Input bg="gray.100" defaultValue={message} size="lg" variant="outline" className="rounded" type="text" placeholder="holla here!" onBlur={(e => handleChange(e))}/>
-              <button className="waveButton" onClick={() => Wave()}>👋</button>
-            </FormControl>) 
-          : ( <VStack><div className="mining"></div><div>Add notifier on success.</div></VStack>) }
-        </Flex>
-      : <Text fontSize="md" mt="3">Connect via <Link fontWeight="black" href="https://metamask.io/">MetaMask</Link> (rinkeby) and holla!</Text>}
+    <><Flex className="waveportal">
+        <VStack> { account && active ? ( 
+          <FormControl className="messenger">
+            <FormLabel htmlFor='message'></FormLabel>
+            <Input bg="gray.100" defaultValue={message} size="lg" variant="outline" className="rounded" type="text" placeholder="holla here!" onBlur={(e => handleInput(e))}/>
+            {!txnAttempt ? ( <button className="waveButton" onClick={() => Wave()}>👋</button> ) : (<div className="mining"></div>) }
+          </FormControl> ) 
+          : ( <Text fontSize="md" mt="3">Connect via <Link fontWeight="black" href="https://metamask.io/">MetaMask</Link> (rinkeby) and holla!</Text>) }
+          {success ? (<Alert status="success"> <AlertIcon /> Message sent! 👍 </Alert> ) : (null)}
+          {err ? (<Alert status="error"> ☹️ An error occured ☹️ </Alert>) : (null)}   
+        </VStack>
+        <Center><Text fontSize="smaller">testing...</Text></Center>
+      </Flex>
     </>
   );
 };
