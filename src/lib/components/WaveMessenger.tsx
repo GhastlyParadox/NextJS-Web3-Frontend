@@ -38,6 +38,7 @@ function getErrorMessage(error: Error) {
   }
 }
 
+
 const Messenger = () => {
 
   const { account, library } = useWeb3React<Web3Provider>();
@@ -50,11 +51,14 @@ const Messenger = () => {
 
   const [ success, setSuccess ] = useState(false);
   const [ err, setErr ] = useState(false);
+
+  let inputKey = 0;
   
-  // const form = useRef(null);
+ 
 
 
   const Wave = async () => {
+
     
     const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
   
@@ -66,6 +70,7 @@ const Messenger = () => {
       await waveTxn.wait();
       console.log("Mined -- ", waveTxn.hash);
       // form.current.reset();
+      inputKey += 1;
       getallWaves();
       setTxnAttempt(false);
       handleAlert(true);
@@ -74,6 +79,7 @@ const Messenger = () => {
       } catch (Error) {
         console.log(getErrorMessage(error!));
         // form.current.reset();
+        inputKey += 1;
         handleAlert(false); 
         setTxnAttempt(false);
       } 
@@ -102,7 +108,7 @@ const Messenger = () => {
     }
   }
 
-  const handleInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     await debouncedInput(e.target.value);
   }
 
@@ -122,7 +128,7 @@ const Messenger = () => {
     debounce(async() => {
       setSuccess(false);
       setErr(false);
-    }, 3000)
+    }, 5000)
   ).current;
   
   useEffect(() => {
@@ -160,16 +166,15 @@ const Messenger = () => {
   return (
     <><Flex className="waveportal">
         <VStack> { account && active ? ( 
-          <FormControl className="messenger">
-            <FormLabel htmlFor='message'></FormLabel>
-            <Input bg="gray.100" defaultValue={message} size="lg" variant="outline" className="rounded" type="text" placeholder="holla here!" onBlur={(e => handleInput(e))}/>
-            {!txnAttempt ? ( <button className="waveButton" onClick={() => Wave()}>👋</button> ) : (<div className="mining"></div>) }
-          </FormControl> ) 
-          : ( <Text fontSize="md" mt="3">Connect via <Link fontWeight="black" href="https://metamask.io/">MetaMask</Link> (rinkeby) and holla!</Text>) }
+            <FormControl className="messenger">
+              <FormLabel htmlFor='message'></FormLabel>
+              <Input key={inputKey} bg="gray.100" defaultValue={message} size="lg" variant="outline" className="rounded" type="text" placeholder="holla here!" onBlur={(e => handleInputChange(e))}/>
+              {!txnAttempt ? ( <button className="waveButton" onClick={() => Wave()}>👋</button> ) : (<div className="mining"></div>) }
+            </FormControl> )
+          :( <Text fontSize="md" mt="3">Connect via <Link fontWeight="black" href="https://metamask.io/">MetaMask</Link> (rinkeby) and holla!</Text>) }
           {success ? (<Center><Alert status="success"> <AlertIcon /> Message sent! 👍 </Alert></Center> ) : (null)}
-          {err ? (<Center><Alert status="error"> ☹️ An error occured ☹️ </Alert></Center>) : (null)}   
+          {err ? (<Center><Alert status="error"> ☹️ An error occured, maybe try again in 5 🙂 </Alert></Center>) : (null)}   
         </VStack>
-        <Center><Text fontSize="smaller">testing...</Text></Center>
       </Flex>
     </>
   );
