@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 import { BigNumber } from 'ethers';
+import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
+import {
+  NoEthereumProviderError,
+  UserRejectedRequestError as UserRejectedRequestErrorInjected
+} from '@web3-react/injected-connector';
 import { waveContractAddress } from "@/lib/utils/constants";
 import { WavePortalAbi__factory } from '@/lib/types';
 import { debounce } from "lodash";
-
 import {
   Input,
   Text,
@@ -13,29 +16,38 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  VStack
 } from '@chakra-ui/react';
+
+
+function getErrorMessage(error: Error) {
+  if (error instanceof NoEthereumProviderError) {
+    return 'No Ethereum browser extension detected, install MetaMask on desktop or visit from a dApp browser on mobile.'
+  } else if (error instanceof UnsupportedChainIdError) {
+    return "You're connected to an unsupported network."
+  } else if (
+    error instanceof UserRejectedRequestErrorInjected // ||
+    // error instanceof UserRejectedRequestErrorWalletConnect
+  ) {
+    return 'Please authorize this website to access your Ethereum account.'
+  } else {
+    console.error(error)
+    return 'An unknown error occurred. Check the console for more details.'
+  }
+}
 
 
 const Messenger = () => {
 
   const { account, library } = useWeb3React<Web3Provider>();
-  const { active } = useWeb3React();
+  const { active, error } = useWeb3React();
 
   const [ allWaves, setAllWaves] = useState([{}]);
   const [ message, setMessage ] = useState<string>("");
   const [ txnAttempt, setTxnAttempt ] = useState(false);
-  
-  const debouncedInput = useRef(
-    debounce(async (input) => {
-      setMessage(await input);
-    }, 300)
-  ).current;
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    await debouncedInput(e.target.value);
-  }
 
-  const wave = async () => {
+  const Wave = async () => {
     
     const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
   
@@ -43,24 +55,22 @@ const Messenger = () => {
       const waveTxn = await wavePortalContract.wave(message, { gasLimit: 300000 });
       console.log("Mining...", waveTxn.hash);
       setTxnAttempt(true);
+      setMessage("");
       
       await waveTxn.wait();
       console.log("Mined -- ", waveTxn.hash);
       setTxnAttempt(false);
-      setMessage("");
-      getallWaves();
 
-      }
-      catch (error) {
-        console.log("Error, ", error);
+      } catch (Error) {
+        console.log(getErrorMessage(error!));
         setTxnAttempt(false);
-        setMessage("");
       } 
   }
 
   const getallWaves = async () => {
-
+    
     const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
+    
     try {
       const waves = await wavePortalContract.getAllWaves();
       const wavesCleaned = waves.map(wave => {
@@ -74,11 +84,22 @@ const Messenger = () => {
       setAllWaves(wavesCleaned);
       console.log("All waves: ", allWaves);
 
-    } catch(error) {
-      console.log("Error, ", error);
+    } catch(Error) {
+      console.log(getErrorMessage(error!));
 
     }
   }
+
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    await debouncedInput(e.target.value);
+  }
+
+  const debouncedInput = useRef(
+    debounce(async (input) => {
+      setMessage(await input);
+    }, 300)
+  ).current;
+  
   useEffect(() => {
     const onNewWave = (from: string, timestamp: BigNumber, message: string) => {
       console.log("NewWave", from, timestamp, message);
@@ -104,8 +125,8 @@ const Messenger = () => {
           }
         };
         
-      } catch (error) {
-        console.log(error);
+      } catch (Error) {
+        console.log(getErrorMessage(error!));
       }
     }
     return;
@@ -117,9 +138,9 @@ const Messenger = () => {
             <FormControl className="messenger">
               <FormLabel htmlFor='message'></FormLabel>
               <Input bg="gray.100" defaultValue={message} size="lg" variant="outline" className="rounded" type="text" placeholder="holla here!" onBlur={(e => handleChange(e))}/>
-              <button className="waveButton" onClick={() => wave()}>👋</button>
+              <button className="waveButton" onClick={() => Wave()}>👋</button>
             </FormControl>) 
-          : ( <div className="mining"></div>) }
+          : ( <VStack><div className="mining"></div><div>Add notifier on success.</div></VStack>) }
         </Flex>
       : <Text fontSize="md" mt="3">Connect via <Link fontWeight="black" href="https://metamask.io/">MetaMask</Link> (rinkeby) and holla!</Text>}
     </>

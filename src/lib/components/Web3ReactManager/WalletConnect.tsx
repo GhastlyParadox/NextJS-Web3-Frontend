@@ -1,6 +1,6 @@
-import { Web3Provider } from '@ethersproject/providers'
-import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
-import React, { useEffect, useState } from 'react'
+import { Web3Provider } from '@ethersproject/providers';
+import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
+import React, { useEffect, useState } from 'react';
 import { useEagerConnect, useInactiveListener } from '../../hooks/web3hooks';
 import {
   NoEthereumProviderError,
@@ -17,7 +17,7 @@ import {
   Spinner,
   Text,
 } from '@chakra-ui/react';
-import { CheckCircleIcon } from '@chakra-ui/icons'
+import { CheckCircleIcon } from '@chakra-ui/icons';
 
 
 enum ConnectorNames {
@@ -25,14 +25,14 @@ enum ConnectorNames {
   // WalletConnect = 'WalletConnect',
   // WalletLink = 'WalletLink',
   // Fortmatic = 'Fortmatic',
-}
+};
 
 const connectorsByName: { [connectorName in ConnectorNames]: any } = {
   [ConnectorNames.Injected]: injected,
   // [ConnectorNames.WalletConnect]: walletconnect,
   // [ConnectorNames.WalletLink]: walletlink,
   // [ConnectorNames.Fortmatic]: fortmatic,
-}
+};
 
 function getErrorMessage(error: Error) {
   if (error instanceof NoEthereumProviderError) {
@@ -48,7 +48,7 @@ function getErrorMessage(error: Error) {
     console.error(error)
     return 'An unknown error occurred. Check the console for more details.'
   }
-}
+};
 
 export function WalletConnect() {
   const context = useWeb3React<Web3Provider>()
@@ -60,10 +60,10 @@ export function WalletConnect() {
     if (activatingConnector && activatingConnector === connector) {
       setActivatingConnector(undefined)
     }
-  }, [activatingConnector, connector])
+  }, [activatingConnector, connector]);
 
   // handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
-  const triedEager = useEagerConnect()
+  const triedEager = useEagerConnect();
 
   // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
   useInactiveListener(!triedEager || !!activatingConnector)
