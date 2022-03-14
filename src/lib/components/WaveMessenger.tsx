@@ -166,8 +166,8 @@ const Messenger = () => {
             {!txnAttempt ? ( <button className="waveButton" onClick={() => Wave()}>👋</button> ) : (<div className="mining"></div>) }
           </FormControl> ) 
           : ( <Text fontSize="md" mt="3">Connect via <Link fontWeight="black" href="https://metamask.io/">MetaMask</Link> (rinkeby) and holla!</Text>) }
-          {success ? (<Alert status="success"> <AlertIcon /> Message sent! 👍 </Alert> ) : (null)}
-          {err ? (<Alert status="error"> ☹️ An error occured ☹️ </Alert>) : (null)}   
+          {success ? (<Center><Alert status="success"> <AlertIcon /> Message sent! 👍 </Alert></Center> ) : (null)}
+          {err ? (<Center><Alert status="error"> ☹️ An error occured ☹️ </Alert></Center>) : (null)}   
         </VStack>
         <Center><Text fontSize="smaller">testing...</Text></Center>
       </Flex>
