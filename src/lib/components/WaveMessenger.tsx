@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, ErrorInfo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Web3Provider } from '@ethersproject/providers';
 import { BigNumber } from 'ethers';
 import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
