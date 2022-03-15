@@ -1,4 +1,3 @@
-
 import { AppConfig } from '@/lib/utils/AppConfig';
 import { Account } from './Account';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -60,5 +59,4 @@ import { Flex,
     </Flex>
     </>
     );
-  } 
-
+  }
