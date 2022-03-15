@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, ErrorInfo } from 'react';
 import { Web3Provider } from '@ethersproject/providers';
 import { BigNumber } from 'ethers';
 import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
 import {
   NoEthereumProviderError,
-  UserRejectedRequestError as UserRejectedRequestErrorInjected
+  UserRejectedRequestError as UserRejectedRequestErrorInjected,
 } from '@web3-react/injected-connector';
+import { serializeError } from 'eth-rpc-errors';
 import { waveContractAddress } from "@/lib/utils/constants";
 import { WavePortalAbi__factory } from '@/lib/types';
 import { debounce } from "lodash";
@@ -20,24 +21,19 @@ import {
   Alert,
   AlertIcon,
   Center,
+  Button,
+  Progress,
 } from '@chakra-ui/react';
 
-function getErrorMessage(error: Error) {
-  if (error instanceof NoEthereumProviderError) {
-    return 'No Ethereum browser extension detected, install MetaMask on desktop or visit from a dApp browser on mobile.'
-  } else if (error instanceof UnsupportedChainIdError) {
-    return "You're connected to an unsupported network."
-  } else if (
-    error instanceof UserRejectedRequestErrorInjected // ||
-    // error instanceof UserRejectedRequestErrorWalletConnect
-  ) {
-    return 'Please authorize this website to access your Ethereum account.'
-  } else {
-    console.error(error)
-    return 'An unknown error occurred. Check the console for more details.'
-  }
-}
 
+const initialState = {
+  message: "",
+  txnAttempt: false,
+  successState: null,
+  errState: null,
+  errMsg: "",
+  inputKey: 0
+}
 
 const Messenger = () => {
 
@@ -46,40 +42,63 @@ const Messenger = () => {
 
   const [ allWaves, setAllWaves] = useState([{}]);
 
-  const [ message, setMessage ] = useState<string>("");
-  const [ txnAttempt, setTxnAttempt ] = useState(false);
+  let [ message, setMessage ] = useState<string>(initialState.message);
+  let [ txnAttempt, setTxnAttempt ] = useState<boolean>(initialState.txnAttempt);
 
-  const [ success, setSuccess ] = useState(false);
-  const [ err, setErr ] = useState(false);
+  let [ successState, setSuccessState ] = useState<null | true>(initialState.successState);
+  let [ errState, setErrState ] = useState<null | true>(initialState.errState);
+  let [ errMsg, setErrMsg ] = useState<string>(initialState.errMsg);
+  let [ inputKey, setKey ] = useState(initialState.inputKey);
 
-  let inputKey = 0;
+
+  function getErrorMessage(error: Error) {
   
- 
+    if (error instanceof NoEthereumProviderError) {
+      setErrMsg("No Ethereum browser extension detected, install MetaMask on desktop or visit from a dApp browser on mobile.");
+      console.error(errMsg);
+      return errMsg;
 
+    } else if (error instanceof UnsupportedChainIdError) {
 
-  const Wave = async () => {
+      setErrMsg("You're connected to an unsupported network.");
+      console.error(errMsg);
+      return errMsg;
 
+    } else if ( error instanceof UserRejectedRequestErrorInjected ) {
+
+      setErrMsg("Please authorize this website to access your Ethereum account.")
+      console.error(errMsg);
+      return errMsg;
+
+    } else {
+      setErrMsg(serializeError(error).message);
+      console.error(serializeError(error));
+      return errMsg;
+    }
     
+  }
+  
+  const Wave = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setTxnAttempt(true);
+
     const wavePortalContract = WavePortalAbi__factory.connect(waveContractAddress, library!.getSigner()); 
   
     try {
       const waveTxn = await wavePortalContract.wave(message, { gasLimit: 300000 });
       console.log("Mining...", waveTxn.hash);
-      setTxnAttempt(true);
       
       await waveTxn.wait();
       console.log("Mined -- ", waveTxn.hash);
-      // form.current.reset();
-      inputKey += 1;
+      setKey(inputKey += 1);
       getallWaves();
       setTxnAttempt(false);
       handleAlert(true);
 
-
       } catch (Error) {
         console.log(getErrorMessage(error!));
-        // form.current.reset();
-        inputKey += 1;
+        getErrorMessage(error!)
+        setKey(inputKey += 1);
         handleAlert(false); 
         setTxnAttempt(false);
       } 
@@ -103,6 +122,7 @@ const Messenger = () => {
       console.log("All waves: ", allWaves);
 
     } catch(Error) {
+      getErrorMessage(error!);
       console.log(getErrorMessage(error!));
 
     }
@@ -114,20 +134,20 @@ const Messenger = () => {
 
   const debouncedInput = useRef(
     debounce(async (input) => {
-      setMessage(await input);
+      !txnAttempt ? setMessage(await input) : setMessage("");
     }, 300)
   ).current;
 
 
   const handleAlert = async (bool: Boolean) => {
-    bool ? setSuccess(true) : setErr(true);
+    bool ? setSuccessState(true) : setErrState(true);
     await debouncedAlert();
   }
 
   const debouncedAlert = useRef(
     debounce(async() => {
-      setSuccess(false);
-      setErr(false);
+      setSuccessState(null);
+      setErrState(null);
     }, 5000)
   ).current;
   
@@ -158,6 +178,7 @@ const Messenger = () => {
         };
         
       } catch (Error) {
+        getErrorMessage(error!);
         console.log(getErrorMessage(error!));
       }
     }
@@ -166,14 +187,16 @@ const Messenger = () => {
   return (
     <><Flex className="waveportal">
         <VStack> { account && active ? ( 
+          <form onSubmit={Wave}>
             <FormControl className="messenger">
               <FormLabel htmlFor='message'></FormLabel>
-              <Input key={inputKey} bg="gray.100" defaultValue={message} size="lg" variant="outline" className="rounded" type="text" placeholder="holla here!" onBlur={(e => handleInputChange(e))}/>
-              {!txnAttempt ? ( <button className="waveButton" onClick={() => Wave()}>👋</button> ) : (<div className="mining"></div>) }
-            </FormControl> )
+              <Input key={inputKey} bg="gray.100" size="lg" isDisabled={txnAttempt} variant="outline" className="rounded" type="text" placeholder="holla here!" onBlur={(e => handleInputChange(e))}/>
+              {!txnAttempt ? ( <Button width="full" backgroundColor="#37476d" mt="4" className="waveButton" type="submit">👋</Button> ) : (<Progress colorScheme="gray" mt="5" size='md' isIndeterminate />) }
+            </FormControl> 
+          </form>)
           :( <Text fontSize="md" mt="3">Connect via <Link fontWeight="black" href="https://metamask.io/">MetaMask</Link> (rinkeby) and holla!</Text>) }
-          {success ? (<Center><Alert status="success"> <AlertIcon /> Message sent! 👍 </Alert></Center> ) : (null)}
-          {err ? (<Center><Alert status="error"> ☹️ An error occured, maybe try again in 5 🙂 </Alert></Center>) : (null)}   
+          {successState ? (<Center><Alert status="success"> <AlertIcon /> Message sent! 👍 </Alert></Center> ) : (null)}
+          {errState ? (<Center><Alert status="error"> ☹️ {errMsg} Check the console for details.</Alert></Center>) : (null)}   
         </VStack>
       </Flex>
     </>
