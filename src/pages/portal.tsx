@@ -1,6 +1,6 @@
 import { Meta } from '@/layout/Meta';
 import { Main } from '@/layout/Main';
-import WaveMessenger from  '@/lib/components/WaveMessenger';
+import WaveMessenger from  '@/lib/components/WaveMessenger/WaveMessenger';
 import { Center, Flex, Heading, Text, Link } from '@chakra-ui/react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

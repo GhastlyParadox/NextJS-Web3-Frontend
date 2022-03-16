@@ -21,11 +21,11 @@ const Index = () => {
             <Heading m="1">
               Welcome!
             </Heading>
+            <Text m="1">I'm Adam, and this is my lil web3 playground.</Text>
             <Divider width="89%" shadow="dark-lg" orientation='horizontal' />
             <Divider width="55%" orientation='horizontal' />
             <Divider width="34%" orientation='horizontal' />
-            <Image borderRadius="lg" margin="10px" shadow="md" maxHeight="33vh" srcSet="https://i.imgur.com/9WnVOVB.jpeg"></Image>
-            <Text>I'm Adam (middle ^). This is my lil web3 playground.</Text>
+            <Text fontSize="x-small" m="1">Under construction 🙂</Text>
           </VStack>
         </Center>
       </Flex>
