@@ -2,7 +2,7 @@
 import React from "react";
 import { Meta } from '@/layout/Meta';
 import { Main } from '@/layout/Main';
-import { Text, Center, Flex, Heading, Image, VStack, Divider } from '@chakra-ui/react'
+import { Text, Center, Flex, Heading, VStack, Divider } from '@chakra-ui/react'
 
 
 const Index = () => {

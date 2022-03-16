@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Web3Provider } from '@ethersproject/providers';
 import { BigNumber } from 'ethers';
 import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core';
@@ -34,11 +34,6 @@ const initialState = {
   errMsg: "",
   inputKey: 0
 }
-
-
-
-
-
 
 
 const Messenger = () => {
@@ -161,7 +156,7 @@ const Messenger = () => {
   // Cooldown Timer
   const Timer = () => { 
 
-    let interval = 30000;
+    let interval = 300000;
     reset();
 
     function reset() {
