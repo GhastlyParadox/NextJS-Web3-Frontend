@@ -43,7 +43,7 @@ export function Footer() {
       }, [account, library, chainId]) // ensures refresh if referential identity of library doesn't change across chainIds
 
     return (
-    <>  <Flex width="100%" justifyContent="space-between">
+    <>  <Flex width="full" justifyContent="space-between">
             <VStack ml="2" mb="2">
                 <FontAwesomeIcon icon={faMusic}/>
                 <Link href="https://soundcloud.com/sightsofsounds" isExternal>

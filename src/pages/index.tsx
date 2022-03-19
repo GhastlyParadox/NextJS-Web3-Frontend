@@ -2,7 +2,7 @@
 import React from "react";
 import { Meta } from '@/layout/Meta';
 import { Main } from '@/layout/Main';
-import { Text, Center, Flex, Heading, VStack, Divider } from '@chakra-ui/react'
+import { Text, Flex, Heading, VStack, Center, Divider } from '@chakra-ui/react'
 
 
 const Index = () => {
@@ -15,20 +15,15 @@ const Index = () => {
           description="holla!"
         />
       }>
-      <Flex direction="column" mt="8" maxWidth="50vw">
-        <Center>
-          <VStack>
-            <Heading m="1">
-              Welcome!
-            </Heading>
-            <Text m="1">I'm Adam, and this is my lil web3 playground.</Text>
-            <Divider width="89%" shadow="dark-lg" orientation='horizontal' />
-            <Divider width="55%" orientation='horizontal' />
-            <Divider width="34%" orientation='horizontal' />
-            <Text fontSize="x-small" m="1">Under construction 🙂</Text>
-          </VStack>
-        </Center>
-      </Flex>
+      <VStack>
+        <Heading>
+          Welcome!
+        </Heading>
+        <Divider width="89%" shadow="dark-lg" orientation='horizontal' />
+        <Text>I'm Adam, and this is my lil web3 playground.</Text>
+        <Divider width="55%" orientation='horizontal' />
+        <Text fontSize="x-small">Under construction 🙂</Text>
+      </VStack>
     </Main>
   );
 };

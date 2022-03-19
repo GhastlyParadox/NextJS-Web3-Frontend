@@ -5,6 +5,7 @@ import { Footer } from './Footer/Footer';
 
 import { Flex, 
   Box,
+  Center,
  } from '@chakra-ui/react';
 
 type IMainProps = {
@@ -17,15 +18,17 @@ const Main = (props: IMainProps) => {
   // const router = useRouter();
 
   return (
-  <Box w="100%" height="100vh">
+  <Box w="full" height="100vh">
     {props.meta}
     <Header />
-    <Flex align="center" justify="center" mt="18vh">
+    <Center>
+      <Flex mt="18vh">
 
-        {props.children}
-  
-    </Flex>
-    <Flex bottom="0" position="absolute" width="100%">
+          {props.children}
+    
+      </Flex>
+    </Center>
+    <Flex bottom="0" position="absolute" width="full">
       <Footer />
     </Flex>
   </Box>

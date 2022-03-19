@@ -3,7 +3,6 @@ import { Account } from './Account';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faHomeAlt, faMessage } from '@fortawesome/free-solid-svg-icons';
 import { Flex, 
-  HStack,
   Center,
   Image,
   Heading,
@@ -19,16 +18,13 @@ import { Flex,
  
     return (
       <>
-      <Flex width="100%" justifyContent="space-between" bgColor="transparent" height="20">
-        <HStack>
-            <Center>
-            <Heading ml="1vw">
+      <Flex wrap="wrap" direction="row" justifyContent="space-between" width="full" bgColor="transparent" height="20">
+        <Center>
+            <Heading m="1vw">
                 {AppConfig.description}
             </Heading>
-            </Center>
-        </HStack>
-        <HStack>
-            <Breadcrumb mr="2vw" spacing='8px' separator={<FontAwesomeIcon icon={faChevronRight} />}>
+        </Center>
+        <Breadcrumb m="1vw" spacing='4vw' separator={<FontAwesomeIcon icon={faChevronRight} />}>  
             <BreadcrumbItem>
                 <BreadcrumbLink href="/">
                 <IconButton size='lg' aria-label='Home' variant="ghost" icon={<FontAwesomeIcon icon={faHomeAlt} />}>         
@@ -54,8 +50,7 @@ import { Flex,
             <BreadcrumbItem>
                 <Account />      
             </BreadcrumbItem>
-            </Breadcrumb>
-        </HStack>
+        </Breadcrumb>
     </Flex>
     </>
     );
