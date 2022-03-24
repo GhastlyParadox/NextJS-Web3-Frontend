@@ -7,17 +7,6 @@ import {
   UserRejectedRequestError as UserRejectedRequestErrorInjected
 } from '@web3-react/injected-connector';
 import { injected } from '../../connectors/connectors';
-import {
-  Center,
-  SimpleGrid,
-  VStack,
-  Image,
-  IconButton,
-  Button,
-  Spinner,
-  Text,
-} from '@chakra-ui/react';
-import { CheckCircleIcon } from '@chakra-ui/icons';
 
 
 enum ConnectorNames {
@@ -68,9 +57,9 @@ export function WalletConnect() {
   // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
   useInactiveListener(!triedEager || !!activatingConnector)
   
-  return ( // Grid for adding wallets later
+  return ( 
   <> 
-    <SimpleGrid columns={1} spacingX='10rem' spacingY='10rem' gridGap="1rem" margin="auto">
+    <div>
         {Object.keys(connectorsByName).map(name => {
         const currentConnector = connectorsByName[name]
         const activating = currentConnector === activatingConnector
@@ -78,41 +67,34 @@ export function WalletConnect() {
         const disabled = !triedEager || !!activatingConnector || connected || !!error
 
         return (
-        <Center height="10vh">
-            <VStack>
-                <IconButton 
+
+            <div>
+                <button 
                     aria-label='Connect Wallet'
-                    _hover={{ bg: 'orange' }}
-                    _focus={{
-                        boxShadow:
-                        '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
-                    }}
-                    borderColor={ activating ? 'orange' : connected ? 'green' : 'unset' }
-                    cursor={disabled ? 'unset' : 'pointer'}
+                    border-color={ activating ? 'orange' : connected ? 'green' : 'unset' }
                     disabled={disabled}
                     key={name}
-                    icon={<Image maxWidth="3em" src="/images/logo-metamask.png" alt="MetaMask" />}
                     onClick={() => {
                         setActivatingConnector(currentConnector)
                         activate(connectorsByName[name])
                     }}> 
-                    {activating && <Spinner color={'black'} height="25%" />}
+                    {activating}  
             
-                </IconButton>
+                </button>
                 
                 {connected && (
-                    <CheckCircleIcon color="green.200" />
+                  console.log("connected")
                 )}
                 
-                {!!error && (<Text mt="1" bottom="0">{getErrorMessage(error)}</Text>)}
+                {!!error && (<p>{getErrorMessage(error)}</p>)}
                 
                 {(active || error) && (
-                    <Button className='disconnectButton' cursor="pointer" onClick={() => {deactivate()}}> Disconnect </Button>
+                    <button className='disconnectButton' onClick={() => {deactivate()}}> Disconnect </button>
                 )}
-            </VStack>
-        </Center>
+            </div>
+
         )})}           
-    </SimpleGrid>
+    </div>
     </>
   )
 }

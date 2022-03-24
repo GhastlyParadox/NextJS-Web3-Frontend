@@ -8,9 +8,7 @@ import type {
 } from "@ethersproject/providers";
 import Web3ReactManager from '../lib/components/Web3ReactManager';
 
-import '@/lib/theme/styles/global.css';
-import { ChakraProvider } from '@chakra-ui/react';
-import customTheme from '@/lib/theme/theme';
+import '@/styles/global.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false;
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -33,11 +31,9 @@ function getLibrary(provider: ExternalProvider | JsonRpcFetchFunc): Web3Provider
 
 const App = ({ Component, pageProps }: AppProps) => (
    <Web3ReactProvider getLibrary={getLibrary}>
-     <ChakraProvider theme={customTheme}>
-        <Web3ReactManager>
-          <Component {...pageProps} /> 
-        </Web3ReactManager>
-      </ChakraProvider>
+      <Web3ReactManager>
+        <Component {...pageProps} /> 
+      </Web3ReactManager>
     </Web3ReactProvider>
 );
 

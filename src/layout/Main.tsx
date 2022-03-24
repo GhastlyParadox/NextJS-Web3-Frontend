@@ -3,11 +3,6 @@ import { ReactNode } from 'react';
 import { Header } from './Header/Header';
 import { Footer } from './Footer/Footer';
 
-import { Flex, 
-  Box,
-  Center,
- } from '@chakra-ui/react';
-
 type IMainProps = {
   meta: ReactNode;
   children: ReactNode;
@@ -18,20 +13,20 @@ const Main = (props: IMainProps) => {
   // const router = useRouter();
 
   return (
-  <Box w="full" height="100vh">
+  <div className='main-container'>
     {props.meta}
     <Header />
-    <Center>
-      <Flex mt="18vh">
-
-          {props.children}
+    <div className='main-content'>
     
-      </Flex>
-    </Center>
-    <Flex bottom="0" position="absolute" width="full">
+
+          { props.children }
+    
+   
+    </div>
+    <div>
       <Footer />
-    </Flex>
-  </Box>
+    </div>
+  </div>
 )};
 
 export { Main };

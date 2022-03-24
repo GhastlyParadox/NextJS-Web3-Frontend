@@ -2,7 +2,6 @@
 import React from "react";
 import { Meta } from '@/layout/Meta';
 import { Main } from '@/layout/Main';
-import { Text, Flex, Heading, VStack, Center, Divider } from '@chakra-ui/react'
 
 
 const Index = () => {
@@ -15,15 +14,14 @@ const Index = () => {
           description="holla!"
         />
       }>
-      <VStack>
-        <Heading>
+      <div>
+        <h2>
           Welcome!
-        </Heading>
-        <Divider width="89%" shadow="dark-lg" orientation='horizontal' />
-        <Text>I'm Adam, and this is my lil web3 playground.</Text>
-        <Divider width="55%" orientation='horizontal' />
-        <Text fontSize="x-small">Under construction 🙂</Text>
-      </VStack>
+        </h2>
+      
+        <p>I'm Adam, and this is my lil web3 playground.</p>
+        <p>Under construction 🙂</p>
+      </div>
     </Main>
   );
 };

@@ -1,3 +1,5 @@
+src/lib/contracts/
+
 src/lib/contracts/*
 
 node_modules

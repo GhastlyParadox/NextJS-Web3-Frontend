@@ -10,20 +10,6 @@ import { serializeError } from 'eth-rpc-errors';
 import { waveContractAddress } from "@/lib/utils/constants";
 import { WavePortalAbi__factory } from '@/lib/types';
 import { debounce } from "lodash";
-import {
-  Input,
-  Text,
-  Link,
-  Flex,
-  FormControl,
-  FormLabel,
-  VStack,
-  Alert,
-  AlertIcon,
-  Center,
-  Button,
-  Progress,
-} from '@chakra-ui/react';
 
 
 const initialState = {
@@ -208,22 +194,21 @@ const Messenger = () => {
     return;
   }, []);
   return (
-    <><Flex className="waveportal" height="100%">
-        <VStack> { account && active ? ( 
+    <><div className="waveportal">
+        <div> { account && active ? ( 
           <form onSubmit={Wave}>
-            <FormControl className="messenger">
-              <FormLabel htmlFor='message'></FormLabel>
-              <Input key={inputKey} bg="gray.100" size="lg" isDisabled={txnAttempt} variant="outline" className="rounded" type="text" placeholder="holla here!" onBlur={(e => handleInputChange(e))}/>
-              {!txnAttempt ? ( <Button width="full" isDisabled={!!timer} backgroundColor="#37476d" mt="4" className="waveButton" type="submit">👋</Button> ) 
-                : (<Progress borderRadius="md" colorScheme="gray" mt="5" size='md' isIndeterminate />) }
-            </FormControl> 
+            <form className="messenger">
+              <input key={inputKey} disabled={txnAttempt} type="text" placeholder="holla here!" onBlur={(e => handleInputChange(e))} />
+              {!txnAttempt ? ( <button className="wave-button" disabled={!!timer} type="submit">👋</button> ) 
+                : (<div className="mining" />) }
+            </form> 
           </form>)
-          :( <Text fontSize="md" mt="3">Connect via <Link fontWeight="black" href="https://metamask.io/">MetaMask</Link> (rinkeby) and holla!</Text>) }
-          {successState ? (<Center><Alert status="success"> <AlertIcon /> Message sent! 👍 </Alert></Center> ) : (null)}
-          {errState ? (<Center><Alert status="error"> ☹️ {errMsg} Check the console for details.</Alert></Center>) : (null)}   
-        </VStack>
-        <Center>{timer! ? `Cooldown: ${timer!/60|0}:${timer!%60}` : ""}</Center>
-      </Flex>
+          :( <p>Connect via <a href="https://metamask.io/">MetaMask</a> (rinkeby) and holla!</p>) }
+          {successState ? (<div>Message sent! 👍</div> ) : (null)}
+          {errState ? (<div>☹️ {errMsg} Check the console for details.</div>) : (null)}   
+        </div>
+        <div>{timer! ? `Cooldown: ${timer!/60|0}:${timer!%60}` : ""}</div>
+      </div>
     </>
   );
 };

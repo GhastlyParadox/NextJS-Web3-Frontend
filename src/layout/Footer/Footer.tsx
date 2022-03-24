@@ -3,14 +3,6 @@ import { useWeb3React } from '@web3-react/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import { formatEther } from '@ethersproject/units';
-import {
-    Link,
-    Flex, 
-    VStack,
-    Stat,
-    StatNumber,
-    Text,
-   } from '@chakra-ui/react';
 
 
 export function Footer() {
@@ -43,21 +35,21 @@ export function Footer() {
       }, [account, library, chainId]) // ensures refresh if referential identity of library doesn't change across chainIds
 
     return (
-    <>  <Flex width="full" justifyContent="space-between">
-            <VStack ml="2" mb="2">
+    <>  <div className='footer'>
+            <div>
                 <FontAwesomeIcon icon={faMusic}/>
-                <Link href="https://soundcloud.com/sightsofsounds" isExternal>
-                    <Text fontSize="small">My other muse.</Text>
-                </Link>   
-            </VStack>
-            <VStack mr="2">
+                <a href="https://soundcloud.com/sightsofsounds" target="_blank">
+                    <p>My other muse.</p>
+                </a>   
+            </div>
+            <div>
             {active && account ?
-                <Stat>
-                    <StatNumber> {balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</StatNumber>     
-                </Stat>
+                
+                    <div> {balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</div>     
+              
                 :null}
-            </VStack> 
-        </Flex>
+            </div> 
+        </div>
     </>
     );
 } 
