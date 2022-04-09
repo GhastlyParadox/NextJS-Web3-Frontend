@@ -35,21 +35,25 @@ export function Footer() {
       }, [account, library, chainId]) // ensures refresh if referential identity of library doesn't change across chainIds
 
     return (
-    <>  <div className='footer'>
-            <div>
+      
+    <><footer className='p-2.5 w-screen fixed bottom-0'>
+       
+          <div className='flex flex-1 flex-wrap'>
+            <div className="items-start grow">
                 <FontAwesomeIcon icon={faMusic}/>
                 <a href="https://soundcloud.com/sightsofsounds" target="_blank">
                     <p>My other muse.</p>
                 </a>   
             </div>
-            <div>
+            <div className="items-end">
             {active && account ?
                 
                     <div> {balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</div>     
               
                 :null}
             </div> 
-        </div>
+          </div>
+      </footer>
     </>
     );
 } 

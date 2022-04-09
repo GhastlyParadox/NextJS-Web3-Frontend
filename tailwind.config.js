@@ -1,60 +1,139 @@
-// default settings can be found here
-// https://unpkg.com/browse/tailwindcss@2.2.17/stubs/defaultConfig.stub.js
-
 module.exports = {
-    mode: "jit",
-    purge: ["./src/**/*.{js,jsx,ts,tsx}"],
-    darkMode: "media", // or 'false' or 'class'
-    theme: {
-      fontFamily: {
-        // sans: ['Graphik', 'sans-serif'],
-        // serif: ['Merriweather', 'serif'],
-      },
-      extend: {
-        // spacing: {
-        //   '128': '32rem',
-        //   '144': '36rem',
-        // },
-        // borderRadius: {
-        //   '4xl': '2rem',
-        // }
-      },
-    },
-    variants: {
-      extend: {},
-    },
-    plugins: [require("@tailwindcss/typography"), require("daisyui")],
-    daisyui: {
-      styled: true,
-      themes: [
-        // first one will be the default theme
-        "night",
-        // uncomment to enable
-        // "light (default)",
-        // "dark",
-        // "cupcake",
-        // "bumblebee",
-        // "emerald",
-        // "corporate",
-        // "synthwave",
-        // "retro",
-        // "cyberpunk",
-        // "valentine",
-        // "halloween",
-        // "garden",
-        // "forest",
-        // "aqua",
-        // "lofi",
-        // "pastel",
-        // "fantasy",
-        // "wireframe",
-        // "black",
-        // "luxury",
-        // "dracula",
+  mode: "jit",
+  purge: ["./src/**/*.{js,jsx,ts,tsx}"],
+  darkMode: "media", // or 'false' or 'class'
+  theme: {
+    fontFamily: {
+      sans: [
+        'ui-sans-serif',
+        'system-ui',
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        '"Noto Sans"',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+        '"Noto Color Emoji"',
       ],
-      base: true,
-      utils: true,
-      logs: true,
-      rtl: false,
+      serif: ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+      mono: [
+        'ui-monospace',
+        'SFMono-Regular',
+        'Menlo',
+        'Monaco',
+        'Consolas',
+        '"Liberation Mono"',
+        '"Courier New"',
+        'monospace',
+      ],
     },
-  };
+    fontSize: {
+      xs: ['0.75rem', { lineHeight: '1rem' }],
+      sm: ['0.875rem', { lineHeight: '1.25rem' }],
+      base: ['1rem', { lineHeight: '1.5rem' }],
+      lg: ['1.125rem', { lineHeight: '1.75rem' }],
+      xl: ['1.25rem', { lineHeight: '1.75rem' }],
+      '2xl': ['1.5rem', { lineHeight: '2rem' }],
+      '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+      '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+      '5xl': ['3rem', { lineHeight: '1' }],
+      '6xl': ['3.75rem', { lineHeight: '1' }],
+      '7xl': ['4.5rem', { lineHeight: '1' }],
+      '8xl': ['6rem', { lineHeight: '1' }],
+      '9xl': ['8rem', { lineHeight: '1' }],
+    },
+    fontWeight: {
+      thin: '100',
+      extralight: '200',
+      light: '300',
+      normal: '400',
+      medium: '500',
+      semibold: '600',
+      bold: '700',
+      extrabold: '800',
+      black: '900',
+    },
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
+    extend: {
+      // spacing: {
+      //   '128': '32rem',
+      //   '144': '36rem',
+      // },
+      // borderRadius: {
+      //   '4xl': '2rem',
+      // }
+    },
+  },
+  variants: {
+    extend: {},
+  },
+  backgroundImage: {
+    none: 'none',
+    'gradient-to-t': 'linear-gradient(to top, var(--tw-gradient-stops))',
+    'gradient-to-tr': 'linear-gradient(to top right, var(--tw-gradient-stops))',
+    'gradient-to-r': 'linear-gradient(to right, var(--tw-gradient-stops))',
+    'gradient-to-br': 'linear-gradient(to bottom right, var(--tw-gradient-stops))',
+    'gradient-to-b': 'linear-gradient(to bottom, var(--tw-gradient-stops))',
+    'gradient-to-bl': 'linear-gradient(to bottom left, var(--tw-gradient-stops))',
+    'gradient-to-l': 'linear-gradient(to left, var(--tw-gradient-stops))',
+    'gradient-to-tl': 'linear-gradient(to top left, var(--tw-gradient-stops))',
+  },
+  backgroundOpacity: ({ theme }) => theme('opacity'),
+  boxShadow: {
+    sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+    DEFAULT: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+    md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+    lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+    xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+    '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
+    inner: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)',
+    none: 'none',
+  },
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  daisyui: {
+    styled: true,
+    themes: [
+      // first one will be the default theme
+      {
+        daisyui: {
+          themes: [
+            {
+              daisyCustom: { 
+                "primary": "#3b82f6",           
+                "secondary": "#38bdf8",              
+                "accent": "#fb7185",             
+                "neutral": "#374151",             
+                "base-100": "#1f2937",             
+                "info": "#99f6e4",           
+                "success": "#2BD4BD",            
+                "warning": "#F4C152",            
+                "error": "#e11d48",
+              },
+          },
+        ],
+      }
+      },
+    ],
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+  },
+  content: [
+    "@/*.{js,ts,jsx,tsx}",
+    "@/layout/**/*.{js,ts,jsx,tsx}",
+    "@/pages/*.{js,ts,jsx,tsx}",
+    "@/lib/components/**/*.{js,ts,jsx,tsx}",
+  ],
+};

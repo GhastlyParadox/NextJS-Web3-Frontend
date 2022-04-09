@@ -1,5 +1,5 @@
-import { Meta } from '@/layout/Meta';
-import { Main } from '@/layout/Main';
+import { Meta } from '@/Meta';
+import { Main } from '@/Main';
 import WaveMessenger from  '@/lib/components/WaveMessenger/WaveMessenger';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

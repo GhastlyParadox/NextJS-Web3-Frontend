@@ -9,6 +9,7 @@ import {
 import { injected } from '../../connectors/connectors';
 
 
+
 enum ConnectorNames {
   Injected = 'Metamask',
   // WalletConnect = 'WalletConnect',
@@ -39,6 +40,11 @@ function getErrorMessage(error: Error) {
   }
 };
 
+function getConnectorKey(connector: string){
+  // https://stackoverflow.com/a/47617289
+  return connector.split('').map(v=>v.charCodeAt(0)).reduce((a,v)=>a+((a<<7)+(a<<3))^v).toString(16);
+}
+
 export function WalletConnect() {
   const context = useWeb3React<Web3Provider>()
   const { connector, activate, deactivate, active, error } = context;
@@ -59,7 +65,7 @@ export function WalletConnect() {
   
   return ( 
   <> 
-    <div>
+    <div className='container'>
         {Object.keys(connectorsByName).map(name => {
         const currentConnector = connectorsByName[name]
         const activating = currentConnector === activatingConnector
@@ -68,18 +74,20 @@ export function WalletConnect() {
 
         return (
 
-            <div>
+            <div className='flex flex-col flex-1 justify-center'>
                 <button 
-                    aria-label='Connect Wallet'
+                    className="btn border-0"
+                    aria-label='wallet-connect'
                     border-color={ activating ? 'orange' : connected ? 'green' : 'unset' }
                     disabled={disabled}
-                    key={name}
+                    key={getConnectorKey(name)}
                     onClick={() => {
                         setActivatingConnector(currentConnector)
                         activate(connectorsByName[name])
-                    }}> 
+                    }}>
+                      <img className='mask mask-hexagon w-10' src="/images/logo-metamask.png" />
                     {activating}  
-            
+
                 </button>
                 
                 {connected && (
@@ -89,7 +97,7 @@ export function WalletConnect() {
                 {!!error && (<p>{getErrorMessage(error)}</p>)}
                 
                 {(active || error) && (
-                    <button className='disconnectButton' onClick={() => {deactivate()}}> Disconnect </button>
+                    <button className="btn bg-slate-600" onClick={() => {deactivate()}}> Disconnect </button>
                 )}
             </div>
 
