@@ -14,7 +14,7 @@ const Index = () => {
           description="holla!"
         />
       }>
-      <div className='flex flex-col'>
+      <div className='flex flex-col text-lg subpixel-antialiased'>
         <div className="p-1 self-center">
           <h2>
             Welcome!

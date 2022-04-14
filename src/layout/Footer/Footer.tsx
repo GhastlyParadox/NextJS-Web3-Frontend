@@ -41,11 +41,11 @@ export function Footer() {
           <div className='flex flex-1 flex-wrap'>
             <div className="items-start grow">
                 <FontAwesomeIcon icon={faMusic}/>
-                <a href="https://soundcloud.com/sightsofsounds" target="_blank">
-                    <p>My other muse.</p>
+                <a className="link" href="https://soundcloud.com/sightsofsounds" target="_blank">
+                    <p className='text-md'>My other muse.</p>
                 </a>   
             </div>
-            <div className="items-end">
+            <div className="items-end text-2xl font-medium">
             {active && account ?
                 
                     <div> {balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</div>     

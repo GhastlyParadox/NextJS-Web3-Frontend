@@ -1,35 +1,24 @@
 module.exports = {
   mode: "jit",
   purge: ["./src/**/*.{js,jsx,ts,tsx}"],
-  darkMode: "media", // or 'false' or 'class'
+  // darkMode: "media", // or 'false' or 'class'
   theme: {
     fontFamily: {
       sans: [
-        'ui-sans-serif',
+        'Poppins',
         'system-ui',
         '-apple-system',
         'BlinkMacSystemFont',
-        '"Segoe UI"',
+        'Segoe UI',
         'Roboto',
-        '"Helvetica Neue"',
+        'Helvetica Neue',
         'Arial',
-        '"Noto Sans"',
+        'Noto Sans',
         'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-        '"Noto Color Emoji"',
-      ],
-      serif: ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
-      mono: [
-        'ui-monospace',
-        'SFMono-Regular',
-        'Menlo',
-        'Monaco',
-        'Consolas',
-        '"Liberation Mono"',
-        '"Courier New"',
-        'monospace',
+        'Apple Color Emoji',
+        'Segoe UI Emoji',
+        'Segoe UI Symbol',
+        'Noto Color Emoji',
       ],
     },
     fontSize: {
@@ -65,6 +54,35 @@ module.exports = {
       xl: '1280px',
       '2xl': '1536px',
     },
+    colors: ({ colors }) => ({
+      inherit: colors.inherit,
+      current: colors.current,
+      transparent: colors.transparent,
+      black: colors.black,
+      white: colors.white,
+      slate: colors.slate,
+      gray: colors.gray,
+      zinc: colors.zinc,
+      neutral: colors.neutral,
+      stone: colors.stone,
+      red: colors.red,
+      orange: colors.orange,
+      amber: colors.amber,
+      yellow: colors.yellow,
+      lime: colors.lime,
+      green: colors.green,
+      emerald: colors.emerald,
+      teal: colors.teal,
+      cyan: colors.cyan,
+      sky: colors.sky,
+      blue: colors.blue,
+      indigo: colors.indigo,
+      violet: colors.violet,
+      purple: colors.purple,
+      fuchsia: colors.fuchsia,
+      pink: colors.pink,
+      rose: colors.rose,
+    }),
     extend: {
       // spacing: {
       //   '128': '32rem',
@@ -91,7 +109,7 @@ module.exports = {
   },
   backgroundOpacity: ({ theme }) => theme('opacity'),
   boxShadow: {
-    sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+    sm: '0 px 2px 0 rgb(0 0 0 / 0.05)',
     DEFAULT: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
     md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
     lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
@@ -103,28 +121,7 @@ module.exports = {
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
   daisyui: {
     styled: true,
-    themes: [
-      // first one will be the default theme
-      {
-        daisyui: {
-          themes: [
-            {
-              daisyCustom: { 
-                "primary": "#3b82f6",           
-                "secondary": "#38bdf8",              
-                "accent": "#fb7185",             
-                "neutral": "#374151",             
-                "base-100": "#1f2937",             
-                "info": "#99f6e4",           
-                "success": "#2BD4BD",            
-                "warning": "#F4C152",            
-                "error": "#e11d48",
-              },
-          },
-        ],
-      }
-      },
-    ],
+    themes: false,
     base: true,
     utils: true,
     logs: true,

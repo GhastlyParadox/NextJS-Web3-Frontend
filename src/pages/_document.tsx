@@ -5,7 +5,7 @@ import { AppConfig } from '@/lib/utils/AppConfig';
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang={AppConfig.locale}>
+      <Html lang={AppConfig.locale} data-theme="daisyCustom">
         <Head />
         <body>
           <Main />

@@ -194,16 +194,13 @@ const Messenger = () => {
     return;
   }, []);
   return (
-    <><div className="waveportal">
+    <><div>
         <div> { account && active ? ( 
-          <form onSubmit={Wave}>
-            <form className="messenger">
-              <input key={inputKey} disabled={txnAttempt} type="text" placeholder="holla here!" onBlur={(e => handleInputChange(e))} />
-              {!txnAttempt ? ( <button className="wave-button" disabled={!!timer} type="submit">👋</button> ) 
+          <form className="form-control"  onSubmit={Wave}>
+              <input className='input input-sm mt-2' key={inputKey} disabled={txnAttempt} type="text" placeholder="holla here!" onBlur={(e => handleInputChange(e))} />
+              {!txnAttempt ? ( <button className="btn btn-sm mt-2" disabled={!!timer} type="submit">👋</button> ) 
                 : (<div className="mining" />) }
-            </form> 
-          </form>)
-          :( <p>Connect via <a href="https://metamask.io/">MetaMask</a> (rinkeby) and holla!</p>) }
+          </form>) :( <p>Connect via <a className='link' href="https://metamask.io/" target="_blank">MetaMask</a> (rinkeby) and holla!</p>) }
           {successState ? (<div>Message sent! 👍</div> ) : (null)}
           {errState ? (<div>☹️ {errMsg} Check the console for details.</div>) : (null)}   
         </div>

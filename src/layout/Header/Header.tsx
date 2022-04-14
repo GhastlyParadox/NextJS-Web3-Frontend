@@ -1,8 +1,6 @@
 import { AppConfig } from '@/lib/utils/AppConfig';
 import { Account } from '../../lib/components/Web3ReactManager/Account';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { wrapper } from './header.module.css';
-
 
  export function Header() {
  
@@ -11,11 +9,11 @@ import { wrapper } from './header.module.css';
       <header className="p-2.5 w-screen">
         <div className='flex flex-1 flex-wrap'>
             <div className='items-start grow'>
-                <h2 className={wrapper}>
+                <h2 className="text-3xl m-2">
                     {AppConfig.description}
                 </h2>
             </div>
-            <nav className="text-sm breadcrumbs items-end">  
+            <nav className="text-lg breadcrumbs items-end">  
                 <ul>
                     <li className="list-item">
                         <a href="/">

@@ -4,7 +4,6 @@
 
 body {
   margin: 0;
-  color: rgb(24, 27, 34);
   background-image: url('https://images.unsplash.com/photo-1508614999368-9260051292e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80') !important;
 }
 
@@ -13,7 +12,6 @@ body {
   min-height: 100vh;
   min-width: 100vw;
 }
-
 
 /*
 .main-content {

@@ -76,7 +76,7 @@ export function WalletConnect() {
 
             <div className='flex flex-col flex-1 justify-center'>
                 <button 
-                    className="btn border-0"
+                    className="btn bg-slate-500 border-0 hover:bg-orange-400"
                     aria-label='wallet-connect'
                     border-color={ activating ? 'orange' : connected ? 'green' : 'unset' }
                     disabled={disabled}
@@ -97,7 +97,7 @@ export function WalletConnect() {
                 {!!error && (<p>{getErrorMessage(error)}</p>)}
                 
                 {(active || error) && (
-                    <button className="btn bg-slate-600" onClick={() => {deactivate()}}> Disconnect </button>
+                    <button className="btn bg-slate-500" onClick={() => {deactivate()}}> Disconnect </button>
                 )}
             </div>
 
