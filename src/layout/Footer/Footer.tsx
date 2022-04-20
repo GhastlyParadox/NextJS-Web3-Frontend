@@ -38,19 +38,16 @@ export function Footer() {
       
     <><footer className='p-2.5 w-screen fixed bottom-0'>
        
-          <div className='flex flex-1 flex-wrap'>
-            <div className="items-start grow">
-                <FontAwesomeIcon icon={faMusic}/>
-                <a className="link" href="https://soundcloud.com/sightsofsounds" target="_blank">
-                    <p className='text-md'>My other muse.</p>
-                </a>   
+          <div className='flex flex-1 justify-between subpixel-antialiased'>
+            <div className="items-start flex flex-col">
+              <form className='self-center' action="https://soundcloud.com/sightsofsounds" target="_blank">
+                <button className='transition rounded-full ease-in-out delay-75 hover:-translate-y-1 hover:scale-125'><FontAwesomeIcon icon={faMusic}/></button>
+              </form>
+              <p className='text-sm'>My other muse.</p>
             </div>
             <div className="items-end text-2xl font-medium">
-            {active && account ?
-                
-                    <div> {balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</div>     
-              
-                :null}
+              { active && account ? <div> {balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</div>     
+              : null }
             </div> 
           </div>
       </footer>

@@ -14,19 +14,14 @@ const Index = () => {
           description="holla!"
         />
       }>
-      <div className='flex flex-col text-lg subpixel-antialiased'>
-        <div className="p-1 self-center">
-          <h2>
-            Welcome!
-          </h2>
-        </div>
-        <div className="p-1 self-center">
-          <p>I'm Adam, and this is my lil web3 playground.</p>
-        </div>
-        <div className="p-1 self-center">
-          <p>Under construction 🙂</p>
-        </div>
-      </div>
+        <div className="hero-content text-center">
+          <div className="subpixel-antialiased">
+            <h1 className="text-3xl"> Welcome! </h1>
+            <p className="py-3">I'm Adam, and this is my lil web3 playground.</p>
+            <p className="py-1 text-xs">Under construction 🙂</p>
+          </div>
+        </div>  
+  
     </Main>
   );
 };

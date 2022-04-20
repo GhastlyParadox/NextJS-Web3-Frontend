@@ -7,13 +7,13 @@ import { Account } from '../../lib/components/Web3ReactManager/Account';
     return (
       <>
       <header className="p-2.5 w-screen">
-        <div className='flex flex-1 flex-wrap'>
+        <div className='flex flex-1 flex-wrap subpixel-antialiased'>
             <div className='items-start grow'>
                 <h2 className="text-3xl m-2">
                     {AppConfig.description}
                 </h2>
             </div>
-            <nav className="text-lg breadcrumbs items-end">  
+            <nav className="items-end text-lg breadcrumbs">  
                 <ul>
                     <li className="list-item">
                         <a href="/">

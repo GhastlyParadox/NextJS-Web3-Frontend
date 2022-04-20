@@ -16,14 +16,12 @@ const Main = (props: IMainProps) => {
   <div className='min-h-screen'>
     {props.meta}
     <Header />
-    <div className="main-pages">
+    <div className='hero min-h-screen'>
 
         { props.children }
  
     </div>
-    <div className='container'>
-      <Footer />
-    </div>
+    <Footer />
   </div>
 )};
 
