@@ -13,13 +13,11 @@ const Main = (props: IMainProps) => {
   // const router = useRouter();
 
   return (
-  <div className='min-h-screen'>
+  <div className='flex flex-wrap bg-hero-main bg-cover min-h-screen subpixel-antialiased'>
     {props.meta}
     <Header />
-    <div className='hero min-h-screen'>
-
-        { props.children }
- 
+    <div className='flex flex-1 items-start justify-center'>
+        { props.children } 
     </div>
     <Footer />
   </div>

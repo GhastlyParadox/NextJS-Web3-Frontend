@@ -14,13 +14,15 @@ const Index = () => {
           description="holla!"
         />
       }>
-        <div className="hero-content text-center">
-          <div className="subpixel-antialiased">
-            <h1 className="text-3xl"> Welcome! </h1>
-            <p className="py-3">I'm Adam, and this is my lil web3 playground.</p>
-            <p className="py-1 text-xs">Under construction 🙂</p>
+
+          <div className="hero-content flex-col">
+          
+                <h1 className="text-3xl"> Welcome! </h1>
+                <p className="py-3">I'm Adam, and this is my lil web3 playground.</p>
+                <p className="py-1 text-xs">Under construction 🙂</p>
+          
           </div>
-        </div>  
+
   
     </Main>
   );

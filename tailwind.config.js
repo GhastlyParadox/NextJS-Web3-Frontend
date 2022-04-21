@@ -84,6 +84,10 @@ module.exports = {
       rose: colors.rose,
     }),
     extend: {
+      backgroundImage: {
+        'hero-main': "url('https://images.unsplash.com/photo-1508614999368-9260051292e5')",
+        // 'footer-texture': "url('/img/footer-texture.png')",
+      }
       // spacing: {
       //   '128': '32rem',
       //   '144': '36rem',

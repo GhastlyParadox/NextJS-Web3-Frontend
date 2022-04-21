@@ -6,15 +6,15 @@ import { Account } from '../../lib/components/Web3ReactManager/Account';
  
     return (
       <>
-      <header className="p-2.5 w-screen">
-        <div className='flex flex-1 flex-wrap subpixel-antialiased'>
+      <header className="w-screen p-2.5">
+        <div className='flex flex-1 flex-wrap'>
             <div className='items-start grow'>
-                <h2 className="text-3xl m-2">
+                <h2 className="text-3xl">
                     {AppConfig.description}
                 </h2>
             </div>
-            <nav className="items-end text-lg breadcrumbs">  
-                <ul>
+            <nav className="items-end text-lg breadcrumbs p-2.5">  
+                <ul className='flex flex-wrap-reverse'>
                     <li className="list-item">
                         <a href="/">
                             <button aria-label='Home'>
@@ -23,7 +23,7 @@ import { Account } from '../../lib/components/Web3ReactManager/Account';
                         </a>
                     </li>
                     <li className="list-item">
-                        <a href="https://github.com/GhastlyParadox">
+                        <a href="https://github.com/GhastlyParadox" target="_blank">
                             <button aria-label='Github' > Github</button>
                         </a>   
                     </li>
