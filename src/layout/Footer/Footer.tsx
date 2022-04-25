@@ -36,14 +36,14 @@ export function Footer() {
 
     return (
       
-    <><footer className='w-screen fixed bottom-0 p-1'>
-          <div className='flex justify-between p-1'>
+    <><footer className='footer-center p-1'>
+          <div className='flex justify-between'>
             <div className="items-start text-center">
               <form action="https://soundcloud.com/sightsofsounds" target="_blank">
-                <button className='btn btn-circle btn-ghost transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-125'><FontAwesomeIcon icon={faMusic}/></button>
+                <button className='btn md:btn-lg btn-circle btn-ghost transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-100'><FontAwesomeIcon icon={faMusic}/></button>
               </form>
             </div>
-            <div className="items-end text-2xl font-medium">
+            <div className="items-end text-xl md:text-2xl font-medium">
               { active && account ? <div> {balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</div>     
               : null }
             </div> 

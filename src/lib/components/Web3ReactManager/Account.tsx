@@ -8,7 +8,6 @@ export function Account() {
 
   return (
     <>
-    
     <label htmlFor="wallet-modal" className='btn btn-xs sm:btn-sm bg-slate-500 modal-button'>
       {active && account ? 
           <>{account.substring(0, 6)}...{account.substring(account.length - 4)}</>
@@ -18,7 +17,9 @@ export function Account() {
     <input type="checkbox" id="wallet-modal" className="modal-toggle" />
     <div className='modal modal-bottom sm:modal-middle cursor-pointer'>
       <div className='modal-box'>
-      <label htmlFor="wallet-modal" className="absolute right-2 top-2">✕</label>
+        <label htmlFor="wallet-modal" className="absolute right-2 top-2">
+          ✕
+        </label>
         <label className='modal-action' htmlFor="wallet-modal">
           <WalletConnect />
         </label>

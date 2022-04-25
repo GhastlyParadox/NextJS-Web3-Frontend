@@ -6,30 +6,32 @@ import { Account } from '../../lib/components/Web3ReactManager/Account';
  
     return (
       <>
-      <header className="w-screen p-2.5">
-        <div className='flex flex-1 flex-wrap'>
-            <div className='items-start grow'>
-                <h2 className="text-3xl">
+      <header>
+        <div className='navbar'>
+            <div className='navbar-start'>
+                <h2 className="text-xl md:text-3xl">
                     {AppConfig.description}
                 </h2>
             </div>
-            <nav className="items-end text-lg breadcrumbs p-2.5">  
-                <ul className='flex flex-wrap-reverse'>
+            <nav className="navbar-end text-sm md:text-lg md:breadcrumbs">  
+                <ul className='text-center'>
                     <li className="list-item">
                         <a href="/">
-                            <button aria-label='Home'>
+                            <button className="link" aria-label='Home'>
                                 Home         
                             </button>
                         </a>
                     </li>
                     <li className="list-item">
                         <a href="https://github.com/GhastlyParadox" target="_blank">
-                            <button aria-label='Github' > Github</button>
+                            <button aria-label='Github' className="link"> 
+                                Github
+                            </button>
                         </a>   
                     </li>
                     <li className="list-item">
                         <a href="/portal/">
-                        <button aria-label='Message'>
+                        <button aria-label='Message' className="link">
                             Messenger
                         </button> 
                         </a>

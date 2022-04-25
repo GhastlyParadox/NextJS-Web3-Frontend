@@ -8,14 +8,14 @@ import { faChain } from '@fortawesome/free-solid-svg-icons';
 
 const Portal = () =>  (
   <Main meta={<Meta title="Web3 Wave Portal" description="title" />}>
-    <div className='flex flex-col items-center mt-24'>
+    <div className='flex flex-col items-center'>
       <div>
         <h2>
           A lil web3 portal <FontAwesomeIcon size="sm" icon={faChain}></FontAwesomeIcon>
         </h2>
       </div>
       <div>
-        <p>Inspired by <a href="https://buildspace.so/">Buildspace</a></p>
+        <p>Inspired by <a className="link" href="https://buildspace.so/" target="_blank">Buildspace</a></p>
       </div>
       <div>
         <WaveMessenger /> 

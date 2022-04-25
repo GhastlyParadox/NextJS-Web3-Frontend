@@ -15,11 +15,15 @@ const Main = (props: IMainProps) => {
   return (
   <div className='flex flex-wrap bg-hero-main bg-cover min-h-screen subpixel-antialiased'>
     {props.meta}
-    <Header />
+    <div className="w-screen p-2.5"> 
+      <Header />
+    </div>
     <div className='flex flex-1 items-start justify-center'>
         { props.children } 
     </div>
-    <Footer />
+    <div className='w-screen fixed bottom-0'>
+      <Footer />
+    </div>
   </div>
 )};
 
