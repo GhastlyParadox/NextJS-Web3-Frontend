@@ -7,17 +7,7 @@ import {
   UserRejectedRequestError as UserRejectedRequestErrorInjected
 } from '@web3-react/injected-connector';
 import { injected } from '../../connectors/connectors';
-import {
-  Center,
-  SimpleGrid,
-  VStack,
-  Image,
-  IconButton,
-  Button,
-  Spinner,
-  Text,
-} from '@chakra-ui/react';
-import { CheckCircleIcon } from '@chakra-ui/icons';
+
 
 
 enum ConnectorNames {
@@ -50,6 +40,11 @@ function getErrorMessage(error: Error) {
   }
 };
 
+function getConnectorKey(connector: string){
+  // https://stackoverflow.com/a/47617289
+  return connector.split('').map(v=>v.charCodeAt(0)).reduce((a,v)=>a+((a<<7)+(a<<3))^v).toString(16);
+}
+
 export function WalletConnect() {
   const context = useWeb3React<Web3Provider>()
   const { connector, activate, deactivate, active, error } = context;
@@ -68,9 +63,9 @@ export function WalletConnect() {
   // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
   useInactiveListener(!triedEager || !!activatingConnector)
   
-  return ( // Grid for adding wallets later
+  return ( 
   <> 
-    <SimpleGrid columns={1} spacingX='10rem' spacingY='10rem' gridGap="1rem" margin="auto">
+    <div className='container'>
         {Object.keys(connectorsByName).map(name => {
         const currentConnector = connectorsByName[name]
         const activating = currentConnector === activatingConnector
@@ -78,41 +73,36 @@ export function WalletConnect() {
         const disabled = !triedEager || !!activatingConnector || connected || !!error
 
         return (
-        <Center height="10vh">
-            <VStack>
-                <IconButton 
-                    aria-label='Connect Wallet'
-                    _hover={{ bg: 'orange' }}
-                    _focus={{
-                        boxShadow:
-                        '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
-                    }}
-                    borderColor={ activating ? 'orange' : connected ? 'green' : 'unset' }
-                    cursor={disabled ? 'unset' : 'pointer'}
+
+            <div className='flex flex-col flex-1 justify-center'>
+                <button 
+                    className="btn bg-slate-500 border-0 hover:bg-orange-400"
+                    aria-label='wallet-connect'
+                    border-color={ activating ? 'orange' : connected ? 'green' : 'unset' }
                     disabled={disabled}
-                    key={name}
-                    icon={<Image maxWidth="3em" src="/images/logo-metamask.png" alt="MetaMask" />}
+                    key={getConnectorKey(name)}
                     onClick={() => {
                         setActivatingConnector(currentConnector)
                         activate(connectorsByName[name])
-                    }}> 
-                    {activating && <Spinner color={'black'} height="25%" />}
-            
-                </IconButton>
+                    }}>
+                      <img className='mask mask-hexagon w-10' src="/images/logo-metamask.png" />
+                    {activating}  
+
+                </button>
                 
                 {connected && (
-                    <CheckCircleIcon color="green.200" />
+                  console.log("connected")
                 )}
                 
-                {!!error && (<Text mt="1" bottom="0">{getErrorMessage(error)}</Text>)}
+                {!!error && (<p>{getErrorMessage(error)}</p>)}
                 
                 {(active || error) && (
-                    <Button className='disconnectButton' cursor="pointer" onClick={() => {deactivate()}}> Disconnect </Button>
+                    <button className="btn bg-slate-500" onClick={() => {deactivate()}}> Disconnect </button>
                 )}
-            </VStack>
-        </Center>
+            </div>
+
         )})}           
-    </SimpleGrid>
+    </div>
     </>
   )
 }

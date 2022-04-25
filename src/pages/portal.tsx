@@ -1,7 +1,6 @@
-import { Meta } from '@/layout/Meta';
-import { Main } from '@/layout/Main';
+import { Meta } from '@/Meta';
+import { Main } from '@/Main';
 import WaveMessenger from  '@/lib/components/WaveMessenger/WaveMessenger';
-import { Center, Flex, Heading, Text, Link } from '@chakra-ui/react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChain } from '@fortawesome/free-solid-svg-icons';
@@ -9,19 +8,19 @@ import { faChain } from '@fortawesome/free-solid-svg-icons';
 
 const Portal = () =>  (
   <Main meta={<Meta title="Web3 Wave Portal" description="title" />}>
-    <Flex direction="column">
-      <Center m="2">
-        <Heading>
-          A lil web3 portal <FontAwesomeIcon size="sm" icon={faChain}></FontAwesomeIcon>
-        </Heading>
-      </Center>
-      <Center>
-        <Text fontSize="smaller">Inspired by <Link fontWeight="semibold" fontFamily="sans-serif" href="https://buildspace.so/">Buildspace</Link></Text>
-      </Center>
-      <Center>
+    <div className='flex flex-col items-center'>
+      <div>
+        <h2>
+          Web3 message portal <FontAwesomeIcon size="sm" icon={faChain}></FontAwesomeIcon>
+        </h2>
+      </div>
+      <div>
+        <p>Inspired by <a className="link" href="https://buildspace.so/" target="_blank">Buildspace</a></p>
+      </div>
+      <div>
         <WaveMessenger /> 
-      </Center>
-    </Flex>
+      </div>
+    </div>
   </Main>
 );
 

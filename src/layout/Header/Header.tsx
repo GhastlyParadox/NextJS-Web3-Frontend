@@ -1,57 +1,50 @@
 import { AppConfig } from '@/lib/utils/AppConfig';
-import { Account } from './Account';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faHomeAlt, faMessage } from '@fortawesome/free-solid-svg-icons';
-import { Flex, 
-  Center,
-  Image,
-  Heading,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  IconButton,
- } from '@chakra-ui/react';
-
-
+import { Account } from '../../lib/components/Web3ReactManager/Account';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
  export function Header() {
  
     return (
       <>
-      <Flex wrap="wrap" direction="row" justifyContent="space-between" width="full" bgColor="transparent" height="20">
-        <Center>
-            <Heading m="1vw">
-                {AppConfig.description}
-            </Heading>
-        </Center>
-        <Breadcrumb m="1vw" spacing='4vw' separator={<FontAwesomeIcon icon={faChevronRight} />}>  
-            <BreadcrumbItem>
-                <BreadcrumbLink href="/">
-                <IconButton size='lg' aria-label='Home' variant="ghost" icon={<FontAwesomeIcon icon={faHomeAlt} />}>         
-                </IconButton>
-                </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-                <BreadcrumbLink href="https://github.com/GhastlyParadox">
-                    <IconButton 
-                    size='lg' 
-                    aria-label='Github' 
-                    variant="ghost" 
-                    icon={<Image maxWidth="20px" 
-                    src="/images/logo-github-dark.png" alt="Github" />}> </IconButton>
-                </BreadcrumbLink>   
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-                <BreadcrumbLink href="/portal/">
-                <IconButton variant="ghost" aria-label='Message' size='lg' icon={<FontAwesomeIcon icon={faMessage}/>}>
-                </IconButton> 
-                </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-                <Account />      
-            </BreadcrumbItem>
-        </Breadcrumb>
-    </Flex>
+      <header>
+        <div className='navbar'>
+            <div className='navbar-start'>
+                <h2 className="text-xl md:text-3xl">
+                    {AppConfig.description}
+                </h2>
+            </div>
+            <nav className="navbar-end text-sm md:text-lg md:breadcrumbs">  
+                <ul className='text-center'>
+                    <li className="list-item">
+                        <a href="/">
+                            <button className="link" aria-label='Home'>
+                                Home         
+                            </button>
+                        </a>
+                    </li>
+                    <li className="list-item">
+                        <a href="https://github.com/GhastlyParadox" target="_blank">
+                            <button aria-label='Github' className="link"> 
+                                Github
+                            </button>
+                        </a>   
+                    </li>
+                    <li className="list-item">
+                        <a href="/portal/">
+                        <button aria-label='Message' className="link">
+                            Messenger
+                        </button> 
+                        </a>
+                    </li>
+                    <li className="list-item">
+                        <Account />      
+                    </li>
+                </ul>
+                
+                </nav>
+           
+            </div>
+        </header>
     </>
     );
   }

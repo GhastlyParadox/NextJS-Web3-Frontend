@@ -3,14 +3,6 @@ import { useWeb3React } from '@web3-react/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import { formatEther } from '@ethersproject/units';
-import {
-    Link,
-    Flex, 
-    VStack,
-    Stat,
-    StatNumber,
-    Text,
-   } from '@chakra-ui/react';
 
 
 export function Footer() {
@@ -43,21 +35,20 @@ export function Footer() {
       }, [account, library, chainId]) // ensures refresh if referential identity of library doesn't change across chainIds
 
     return (
-    <>  <Flex width="full" justifyContent="space-between">
-            <VStack ml="2" mb="2">
-                <FontAwesomeIcon icon={faMusic}/>
-                <Link href="https://soundcloud.com/sightsofsounds" isExternal>
-                    <Text fontSize="small">My other muse.</Text>
-                </Link>   
-            </VStack>
-            <VStack mr="2">
-            {active && account ?
-                <Stat>
-                    <StatNumber> {balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</StatNumber>     
-                </Stat>
-                :null}
-            </VStack> 
-        </Flex>
+      
+    <><footer className='footer-center p-1'>
+          <div className='flex justify-between'>
+            <div className="items-start text-center">
+              <form action="https://soundcloud.com/sightsofsounds" target="_blank">
+                <button className='btn md:btn-lg btn-circle btn-ghost transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-100'><FontAwesomeIcon icon={faMusic}/></button>
+              </form>
+            </div>
+            <div className="items-end text-xl md:text-2xl font-medium">
+              { active && account ? <div> {balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</div>     
+              : null }
+            </div> 
+          </div>
+      </footer>
     </>
     );
 } 
