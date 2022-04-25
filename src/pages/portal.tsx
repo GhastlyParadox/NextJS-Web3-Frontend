@@ -11,7 +11,7 @@ const Portal = () =>  (
     <div className='flex flex-col items-center'>
       <div>
         <h2>
-          A lil web3 portal <FontAwesomeIcon size="sm" icon={faChain}></FontAwesomeIcon>
+          Web3 message portal <FontAwesomeIcon size="sm" icon={faChain}></FontAwesomeIcon>
         </h2>
       </div>
       <div>
