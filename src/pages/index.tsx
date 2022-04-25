@@ -1,13 +1,7 @@
 // import { useRouter } from 'next/router';
 import React from "react";
-<<<<<<< HEAD
-import { Meta } from '@/layout/Meta';
-import { Main } from '@/layout/Main';
-import { Text, Heading, VStack, Divider } from '@chakra-ui/react'
-=======
 import { Meta } from '@/Meta';
 import { Main } from '@/Main';
->>>>>>> tailwind
 
 
 const Index = () => {
