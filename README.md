@@ -32,7 +32,8 @@ Open http://localhost:3000 with your favorite browser, go nuts.
 │   └── images               # etc               
 ├── src
 │   ├── layout               # Atomic layout components
-│   ├── pages                # Next JS pages
 │   ├── lib                  # Components, Connectors, Types, Theme, Hooks, Utils, etc.
+│   ├── pages                # Next JS pages
+│   ├── styles               # .
 └── tsconfig.json            # TypeScript configuration
 ```
