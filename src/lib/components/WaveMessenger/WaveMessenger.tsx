@@ -11,6 +11,9 @@ import { waveContractAddress } from "@/lib/utils/constants";
 import { WavePortalAbi__factory } from '@/lib/types';
 import { debounce } from "lodash";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChain } from '@fortawesome/free-solid-svg-icons';
+
 
 const initialState = {
   message: "",
@@ -195,14 +198,27 @@ const Messenger = () => {
   }, []);
   return (
     <><div className='w-60'>
-        <div> { account && active ? ( 
-          <form className="form-control"  onSubmit={Wave}>
+        <div> { account && active ? (
+          <form className="form-control text-center m-1.5"  onSubmit={Wave}>
+              <h2 className='text-md md:text-lg'> Web3 message portal <FontAwesomeIcon size="sm" icon={faChain}></FontAwesomeIcon> </h2>
+              <p className='text-sm md:text-md'>Inspired by <a href="https://buildspace.so/" target="_blank">Buildspace</a></p>
               <input className='input input-sm mt-2 bg-opacity-95' key={inputKey} disabled={txnAttempt} type="text" placeholder="holla here!" onBlur={(e => handleInputChange(e))} />
-              {!txnAttempt ? ( <button className="btn btn-sm mt-2 bg-opacity-95" disabled={!!timer} type="submit">👋</button> ) 
-                : (<div className="mining" />) }
-          </form>) :( <p>Connect via <a className='link' href="https://metamask.io/" target="_blank">MetaMask</a> (rinkeby) and holla!</p>) }
-          {successState ? (<div>Message sent! 👍</div> ) : (null)}
-          {errState ? (<div>☹️ {errMsg} Check the console for details.</div>) : (null)}   
+              { !txnAttempt ? 
+                ( <button className="btn btn-sm mt-2 bg-opacity-95" disabled={!!timer} type="submit">👋</button> ) 
+                  : 
+                (<div className="mining" />) 
+              }
+              { successState ? 
+                (<div>Message sent! 👍</div> ) 
+                : 
+                (null) 
+              }
+              { errState ? 
+                (<div>☹️ {errMsg} Check the console for details.</div>) 
+                : (null) 
+              }   
+          </form> )
+            : ( <p>Connect via <a className='link' href="https://metamask.io/" target="_blank">MetaMask</a> (rinkeby) and holla!</p>) }
         </div>
         <div>{timer! ? `Cooldown: ${timer!/60|0}:${timer!%60}` : ""}</div>
       </div>
