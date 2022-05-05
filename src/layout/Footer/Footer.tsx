@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faMusic, faNavicon } from '@fortawesome/free-solid-svg-icons';
 import { formatEther } from '@ethersproject/units';
 
 
@@ -36,18 +36,52 @@ export function Footer() {
 
     return (
       
-    <><footer className='footer-center p-1'>
-          <div className='flex justify-between'>
-            <div className="items-start text-center">
-              <form action="https://soundcloud.com/sightsofsounds" target="_blank">
-                <button className='btn md:btn-lg btn-circle btn-ghost transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-100'><FontAwesomeIcon icon={faMusic}/></button>
-              </form>
-            </div>
-            <div className="items-end text-xl md:text-2xl font-medium">
-              { active && account ? <div> {balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</div>     
-              : null }
-            </div> 
+    <><footer>
+        <div className='flex justify-between items-end m-1'>   
+          <div>
+            <form action="https://soundcloud.com/sightsofsounds" target="_blank">
+              <button className='btn md:btn-lg btn-circle btn-ghost transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-100'><FontAwesomeIcon icon={faMusic}/></button>
+            </form>
           </div>
+          <div className="drawer-content">
+            <div className='drawer place-content-end h-auto'>
+              <input id="footer-drawer" type="checkbox" className="drawer-toggle" />
+              <label htmlFor="footer-drawer" className="drawer-button btn btn-sm bg-opacity-70"><FontAwesomeIcon icon={faNavicon}/></label>
+              <div className="drawer-side">
+                <label htmlFor="footer-drawer" className="drawer-overlay rounded-lg"></label>
+                <nav>
+                <ul className="menu p-4 overflow-y-auto">
+                  <li className="list-item">
+                    <a href="/">
+                      <button className="link" aria-label='Home'>
+                          Home         
+                      </button>
+                    </a>
+                  </li>
+                  <li className="list-item">
+                      <a href="https://github.com/GhastlyParadox" target="_blank">
+                          <button aria-label='Github' className="link"> 
+                              Github
+                          </button>
+                      </a>   
+                  </li>
+                  <li className="list-item">
+                      <a href="/portal/">
+                      <button aria-label='Message' className="link">
+                          Messenger
+                      </button> 
+                      </a>
+                  </li>
+                </ul>
+                </nav>
+              </div>
+            </div>
+          </div> 
+          <div className="text-xl md:text-2xl font-medium p-1">
+            { active && account ? <div> {balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</div>     
+            : `Ξ?.??` }
+          </div>
+        </div>
       </footer>
     </>
     );
