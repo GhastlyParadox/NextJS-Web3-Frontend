@@ -37,8 +37,8 @@ export function Footer() {
     return (
       
     <><footer>
-        <div className='flex justify-between m-1'>   
-          <div className="self-end text-center">
+        <div className='flex justify-between items-end m-1'>   
+          <div>
             <form action="https://soundcloud.com/sightsofsounds" target="_blank">
               <button className='btn md:btn-lg btn-circle btn-ghost transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-100'><FontAwesomeIcon icon={faMusic}/></button>
             </form>
@@ -46,7 +46,7 @@ export function Footer() {
           <div className="drawer-content">
             <div className='drawer place-content-end h-auto'>
               <input id="footer-drawer" type="checkbox" className="drawer-toggle" />
-              <label htmlFor="footer-drawer" className="drawer-button btn btn-sm bg-opacity-75"><FontAwesomeIcon icon={faNavicon}/></label>
+              <label htmlFor="footer-drawer" className="drawer-button btn btn-sm bg-opacity-70"><FontAwesomeIcon icon={faNavicon}/></label>
               <div className="drawer-side">
                 <label htmlFor="footer-drawer" className="drawer-overlay rounded-lg"></label>
                 <nav>
@@ -77,7 +77,7 @@ export function Footer() {
               </div>
             </div>
           </div> 
-          <div className="self-end text-xl md:text-2xl font-medium p-1">
+          <div className="text-xl md:text-2xl font-medium p-1">
             { active && account ? <div> {balance === null ? 'Error' : balance ? `Ξ${formatEther(balance).substring(0, 7)}` : ''}</div>     
             : `Ξ?.??` }
           </div>

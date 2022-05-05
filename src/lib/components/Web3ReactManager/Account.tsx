@@ -8,7 +8,7 @@ export function Account() {
 
   return (
     <>
-    <label htmlFor="wallet-modal" className='btn btn-xs sm:btn-sm bg-slate-500 modal-button'>
+    <label htmlFor="wallet-modal" className='btn btn-xs sm:btn-sm bg-opacity-70 modal-button'>
       {active && account ? 
           <>{account.substring(0, 6)}...{account.substring(account.length - 4)}</>
       : 'Connect Wallet' }
